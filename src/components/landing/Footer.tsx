@@ -11,6 +11,8 @@ import {
 } from "lucide-react";
 
 export function Footer() {
+  const currentYear = new Date().getFullYear();
+  
   return (
     <footer className="bg-slate-900 text-white">
       {/* Newsletter Section */}
@@ -90,7 +92,7 @@ export function Footer() {
       <Separator className="bg-slate-800" />
       <div className="container py-6">
         <div className="flex flex-col sm:flex-row justify-between items-center gap-4 text-sm text-slate-400">
-          <p>{content.company.copyright}</p>
+          <p>© {currentYear} {content.company.name}. All rights reserved.</p>
           <div className="flex items-center space-x-6">
             <span>{content.company.madeWith}</span>
             <a href="#" className="hover:text-white transition-colors">
