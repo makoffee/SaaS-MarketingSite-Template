@@ -8,6 +8,7 @@ import { Play, ArrowRight, Upload, Zap, Globe, Shield, Bot } from "lucide-react"
 import { Badge } from "../ui/badge";
 import { content } from "../../config/content";
 import dashboardScreenshot from "figma:asset/3e4dc50aa035862f857a75a1da86ec0376e3eedf.png";
+import { MultilingualTypewriterH1 } from "./MultilingualTypewriterH1";
 
 interface HeroContent {
   badge: {
@@ -50,7 +51,7 @@ export function Hero({
       </div>
 
       <div className="container relative z-10">
-        <div className="flex flex-col items-center text-center space-y-8 max-w-4xl mx-auto">
+        <div className="flex flex-col items-center text-center space-y-8 w-full max-w-5xl mx-auto">
           {/* Badge */}
           <Badge variant="secondary" className="px-4 py-2 text-sm font-medium">
             {heroContent.badge.icon === "zap" && <Zap className="w-4 h-4 mr-2" />}
@@ -58,21 +59,11 @@ export function Hero({
             {heroContent.badge.text}
           </Badge>
 
-          {/* Main heading - Using natural golden ratio system from globals.css */}
-          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-5xl xl:text-5xl 2xl:text-6xl tracking-tight font-black max-w-5xl mx-auto">
-            <span className="block">
-              {heroContent.headline.part1}{" "}
-              <span className="bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
-                {heroContent.headline.highlighted}
-              </span>
-            </span>
-            <span className="block">
-              {heroContent.headline.part2}
-            </span>
-          </h1>
+          {/* Main heading - Multilingual typewriter animation */}
+          <MultilingualTypewriterH1 />
 
           {/* Subheading */}
-          <p className="text-lg sm:text-xl md:text-2xl text-muted-foreground max-w-3xl leading-snug">
+          <p className="text-lg sm:text-xl md:text-2xl text-muted-foreground max-w-5xl leading-snug">
             {heroContent.subheadline}
           </p>
 
