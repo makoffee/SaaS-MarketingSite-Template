@@ -1,18 +1,18 @@
-# eysign Project Guidelines
+# Project Guidelines
 
-## 🎯 Project Overview
+## Project Overview
 
-This is a professional SaaS landing page for **eysign** - an AI-powered video localization and accessibility platform targeting studios, production houses, and enterprises like Netflix, Sky, and Paramount.
+This is a professional SaaS landing page template for video localization and accessibility platforms targeting studios, production houses, and media enterprises.
 
 **Tech Stack:**
-- **Frontend:** React → Next.js 14+ (App Router)
+- **Frontend:** React to Next.js 14+ (App Router)
 - **CMS:** Prismic CMS
 - **Styling:** Tailwind CSS v4 + Tailwind UI
 - **Components:** shadcn/ui + Tailwind UI components
 - **Animations:** Motion/React (Framer Motion)
 - **Deployment:** Vercel
 
-## 🎨 Design System
+## Design System
 
 ### Brand Colors
 - **Primary Purple Gradient:** `from-indigo-500 to-purple-600`
@@ -42,7 +42,7 @@ This is a professional SaaS landing page for **eysign** - an AI-powered video lo
   - Colors: Explicitly apply brand gradients and colors
   - Spacing: Set padding/margin to match design system
 
-## 🔧 Technical Requirements
+## Technical Requirements
 
 ### Next.js Migration Readiness
 - All components designed to accept props for CMS integration
@@ -62,7 +62,7 @@ This is a professional SaaS landing page for **eysign** - an AI-powered video lo
 - Follow React best practices and performance patterns
 - Keep components modular and reusable
 
-## 📱 Responsive Design
+## Responsive Design
 
 ### Breakpoint System
 ```css
@@ -76,11 +76,11 @@ XL: 1280px max
 
 ### Mobile-First Approach
 - Navigation collapses to hamburger menu below 768px
-- Typography scales appropriately (5xl → 7xl)
+- Typography scales appropriately (5xl to 7xl)
 - Grid layouts stack vertically on mobile
 - Touch-friendly interaction areas (44px minimum)
 
-## 🎭 Theme System
+## Theme System
 
 ### Dark Mode Support
 - All components must support light/dark themes
@@ -94,7 +94,7 @@ XL: 1280px max
 - Purple gradients for primary CTAs
 - Teal gradients for secondary elements
 
-## 📊 Content Management
+## Content Management
 
 ### Prismic CMS Integration
 - Content structure defined in `/docs/prismic-content-types.md`
@@ -107,7 +107,7 @@ XL: 1280px max
 - Components designed to accept content props
 - Easy transition from static to CMS data
 
-## 🚀 Performance Standards
+## Performance Standards
 
 ### Core Web Vitals Targets
 - **First Contentful Paint:** < 1.5s
@@ -122,11 +122,11 @@ XL: 1280px max
 - Code splitting at route level
 - Bundle size monitoring
 
-## 🔍 SEO & Accessibility
+## SEO & Accessibility
 
 ### SEO Requirements
 - Semantic HTML structure
-- Proper heading hierarchy (h1 → h6)
+- Proper heading hierarchy (h1 to h6)
 - Meta tags and Open Graph data
 - Structured data where applicable
 
@@ -136,7 +136,7 @@ XL: 1280px max
 - Screen reader compatibility
 - Focus management in interactive elements
 
-## 🧪 Testing Strategy
+## Testing Strategy
 
 ### Required Testing
 - Unit tests for components (Jest + RTL)
@@ -150,22 +150,22 @@ XL: 1280px max
 - Linting with no warnings
 - Build succeeds without issues
 
-## 📦 Deployment
+## Deployment
 
 ### Environment Requirements
 ```bash
-PRISMIC_REPOSITORY_NAME=eysign
+PRISMIC_REPOSITORY_NAME=your_project
 PRISMIC_ACCESS_TOKEN=xxx
-NEXT_PUBLIC_SITE_URL=https://eysign.com
+NEXT_PUBLIC_SITE_URL=https://your-domain.com
 ```
 
 ### Deployment Pipeline
-- **Staging:** `develop` branch → staging.eysign.com
-- **Production:** `main` branch → eysign.com
+- **Staging:** `develop` branch to staging environment
+- **Production:** `main` branch to production
 - Automatic deployments via Vercel
 - Preview URLs for feature branches
 
-## 🔄 Development Workflow
+## Development Workflow
 
 ### Branching Strategy
 ```
@@ -182,7 +182,7 @@ main (production)
 - Automated testing passes
 - Performance impact assessed
 
-## 📋 Developer Handoff Checklist
+## Developer Handoff Checklist
 
 ### Documentation Complete
 - [ ] Next.js migration guide created
@@ -210,7 +210,7 @@ main (production)
 - [ ] Analytics integration planned
 - [ ] Error monitoring setup
 
-## 🎯 Success Metrics
+## Success Metrics
 
 ### User Experience
 - Page load time < 2 seconds
@@ -232,4 +232,4 @@ main (production)
 
 ---
 
-*This document serves as the single source of truth for the eysign project. All development decisions should align with these guidelines to ensure consistency, quality, and maintainability.*
+This document serves as the single source of truth for the project. All development decisions should align with these guidelines to ensure consistency, quality, and maintainability.
