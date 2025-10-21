@@ -86,8 +86,7 @@ export function Solutions() {
                   </Badge>
                 </div>
               )}
-              <CardContent className="p-8">
-                <div className="space-y-6">
+              <CardContent className="p-8 space-y-6">
                   <div className="flex items-center space-x-3">
                     <div className={`w-12 h-12 rounded-lg bg-gradient-to-br ${solution.gradient} flex items-center justify-center flex-shrink-0`}>
                       <solution.icon className="w-6 h-6 text-white" />
@@ -125,7 +124,6 @@ export function Solutions() {
                       <ArrowRight className="ml-2 h-4 w-4" />
                     </Button>
                   </div>
-                </div>
               </CardContent>
             </Card>
           ))}

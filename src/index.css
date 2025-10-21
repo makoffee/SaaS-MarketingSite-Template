@@ -1,3 +1,4 @@
+@import url("https://api.fontshare.com/v2/css?f[]=satoshi@900,700,500,400&f[]=inter@600,500,400&display=swap");
 /*! tailwindcss v4.1.3 | MIT License | https://tailwindcss.com */
 @layer properties {
   @supports (((-webkit-hyphens: none)) and (not (margin-trim: inline))) or ((-moz-orient: inline) and (not (color: rgb(from red r g b)))) {
@@ -126,7 +127,6 @@
     --text-5xl--line-height: 1;
     --text-6xl: 3.75rem;
     --text-6xl--line-height: 1;
-    --font-weight-normal: 400;
     --font-weight-medium: 500;
     --font-weight-semibold: 600;
     --font-weight-bold: 700;
@@ -148,6 +148,8 @@
     --default-mono-font-family: var(--font-mono);
     --default-mono-font-feature-settings: var(--font-mono--font-feature-settings);
     --default-mono-font-variation-settings: var(--font-mono--font-variation-settings);
+    --font-family-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    --font-family-heading: "Satoshi", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   }
 }
 
@@ -405,118 +407,6 @@
   body {
     background-color: var(--background);
     color: var(--foreground);
-  }
-
-  * {
-    border-color: var(--border);
-    outline-color: var(--ring);
-  }
-
-  @supports (color: color-mix(in lab, red, red)) {
-    * {
-      outline-color: color-mix(in oklab, var(--ring) 50%, transparent);
-    }
-  }
-
-  body {
-    background-color: var(--background);
-    color: var(--foreground);
-    font-family: Inter, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif;
-  }
-
-  .container {
-    width: 100%;
-    margin-left: auto;
-    margin-right: auto;
-    padding-left: 1rem;
-    padding-right: 1rem;
-  }
-
-  @media (width >= 640px) {
-    .container {
-      max-width: 640px;
-      padding-left: 1.5rem;
-      padding-right: 1.5rem;
-    }
-  }
-
-  @media (width >= 768px) {
-    .container {
-      max-width: 768px;
-      padding-left: 2rem;
-      padding-right: 2rem;
-    }
-  }
-
-  @media (width >= 1024px) {
-    .container {
-      max-width: 1024px;
-    }
-  }
-
-  @media (width >= 1280px) {
-    .container {
-      max-width: 1280px;
-    }
-  }
-
-  @media (width >= 1536px) {
-    .container {
-      max-width: 1536px;
-    }
-  }
-
-  :where(:not(:has([class*=" text-"]), :not(:has([class^="text-"])))) h1 {
-    font-family: Satoshi, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif;
-    font-size: var(--text-2xl);
-    font-weight: var(--font-weight-medium);
-    line-height: var(--line-height-sm);
-  }
-
-  :where(:not(:has([class*=" text-"]), :not(:has([class^="text-"])))) h2 {
-    font-family: Satoshi, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif;
-    font-size: var(--text-xl);
-    font-weight: var(--font-weight-medium);
-    line-height: var(--line-height-base);
-  }
-
-  :where(:not(:has([class*=" text-"]), :not(:has([class^="text-"])))) h3 {
-    font-family: Satoshi, -apple-system, BlinkMacSystemFont, Segee UI, Roboto, Helvetica Neue, Arial, sans-serif;
-    font-size: var(--text-lg);
-    font-weight: var(--font-weight-medium);
-    line-height: var(--line-height-base);
-  }
-
-  :where(:not(:has([class*=" text-"]), :not(:has([class^="text-"])))) h4 {
-    font-family: Satoshi, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif;
-    font-size: var(--text-base);
-    font-weight: var(--font-weight-medium);
-    line-height: var(--line-height-lg);
-  }
-
-  :where(:not(:has([class*=" text-"]), :not(:has([class^="text-"])))) p {
-    font-family: Inter, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif;
-    font-size: var(--text-base);
-    font-weight: var(--font-weight-normal);
-    line-height: var(--line-height-xl);
-  }
-
-  :where(:not(:has([class*=" text-"]), :not(:has([class^="text-"])))) label, :where(:not(:has([class*=" text-"]), :not(:has([class^="text-"])))) button {
-    font-family: Inter, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif;
-    font-size: var(--text-base);
-    font-weight: var(--font-weight-medium);
-    line-height: 1.5;
-  }
-
-  :where(:not(:has([class*=" text-"]), :not(:has([class^="text-"])))) input {
-    font-family: Inter, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif;
-    font-size: var(--text-base);
-    font-weight: var(--font-weight-normal);
-    line-height: 1.5;
-  }
-
-  :where(:not(:has([class*=" text-"]), :not(:has([class^="text-"])))) nav, :where(:not(:has([class*=" text-"]), :not(:has([class^="text-"])))) a, :where(:not(:has([class*=" text-"]), :not(:has([class^="text-"])))) span, :where(:not(:has([class*=" text-"]), :not(:has([class^="text-"])))) div, :where(:not(:has([class*=" text-"]), :not(:has([class^="text-"])))) select, :where(:not(:has([class*=" text-"]), :not(:has([class^="text-"])))) textarea, :where(:not(:has([class*=" text-"]), :not(:has([class^="text-"])))) small, :where(:not(:has([class*=" text-"]), :not(:has([class^="text-"])))) strong, :where(:not(:has([class*=" text-"]), :not(:has([class^="text-"])))) em {
-    font-family: Inter, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif;
   }
 }
 
@@ -1006,6 +896,10 @@
     gap: calc(var(--spacing) * 8);
   }
 
+  .gap-10 {
+    gap: calc(var(--spacing) * 10);
+  }
+
   :where(.space-y-2 > :not(:last-child)) {
     --tw-space-y-reverse: 0;
     margin-block-start: calc(calc(var(--spacing) * 2) * var(--tw-space-y-reverse));
@@ -1099,15 +993,15 @@
   }
 
   .rounded-lg {
-    border-radius: var(--radius);
+    border-radius: .625rem;
   }
 
   .rounded-md {
-    border-radius: calc(var(--radius)  - 2px);
+    border-radius: .425rem;
   }
 
   .rounded-xl {
-    border-radius: calc(var(--radius)  + 4px);
+    border-radius: 1.025rem;
   }
 
   .border {
@@ -1544,10 +1438,6 @@
     padding: calc(var(--spacing) * 8);
   }
 
-  .p-12 {
-    padding: calc(var(--spacing) * 12);
-  }
-
   .px-0 {
     padding-inline: calc(var(--spacing) * 0);
   }
@@ -1588,12 +1478,8 @@
     padding-block: calc(var(--spacing) * 4);
   }
 
-  .py-6 {
-    padding-block: calc(var(--spacing) * 6);
-  }
-
-  .py-16 {
-    padding-block: calc(var(--spacing) * 16);
+  .py-8 {
+    padding-block: calc(var(--spacing) * 8);
   }
 
   .py-24 {
@@ -2288,6 +2174,12 @@
   }
 
   @media (width >= 48rem) {
+    .md\:py-10 {
+      padding-block: calc(var(--spacing) * 10);
+    }
+  }
+
+  @media (width >= 48rem) {
     .md\:pt-24 {
       padding-top: calc(var(--spacing) * 24);
     }
@@ -2728,70 +2620,30 @@
   }
 }
 
-@font-face {
-  font-family: Inter;
-  src: url("/fonts/inter/Inter-Regular.woff2") format("woff2");
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: Inter;
-  src: url("/fonts/inter/Inter-Medium.woff2") format("woff2");
-  font-weight: 500;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: Inter;
-  src: url("/fonts/inter/Inter-SemiBold.woff2") format("woff2");
-  font-weight: 600;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: Satoshi;
-  src: url("/fonts/satoshi/Satoshi-Regular.woff2") format("woff2");
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: Satoshi;
-  src: url("/fonts/satoshi/Satoshi-Medium.woff2") format("woff2");
-  font-weight: 500;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: Satoshi;
-  src: url("/fonts/satoshi/Satoshi-SemiBold.woff2") format("woff2");
-  font-weight: 600;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: Satoshi;
-  src: url("/fonts/satoshi/Satoshi-Bold.woff2") format("woff2");
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
-}
 
 :root {
   --font-size: 16px;
-  --golden-ratio: 1.618;
+  --text-xs: .75rem;
+  --text-sm: .875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.25rem;
+  --text-2xl: 1.5rem;
+  --text-3xl: 1.875rem;
+  --text-4xl: 2.25rem;
   --line-height-xs: 1.2;
   --line-height-sm: 1.3;
   --line-height-base: 1.4;
   --line-height-lg: 1.5;
   --line-height-xl: 1.618;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-black: 900;
+  --radius: .625rem;
+  --radius-sm: calc(var(--radius)  - 4px);
+  --radius-md: calc(var(--radius)  - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius)  + 4px);
   --background: #fff;
   --foreground: oklch(.145 0 0);
   --card: #fff;
@@ -2812,16 +2664,12 @@
   --input: transparent;
   --input-background: #f3f3f5;
   --switch-background: #cbced4;
-  --font-weight-black: 900;
-  --font-weight-medium: 500;
-  --font-weight-normal: 400;
   --ring: oklch(.708 0 0);
   --chart-1: oklch(.646 .222 41.116);
   --chart-2: oklch(.6 .118 184.704);
   --chart-3: oklch(.398 .07 227.392);
   --chart-4: oklch(.828 .189 84.429);
   --chart-5: oklch(.769 .188 70.08);
-  --radius: .625rem;
   --sidebar: oklch(.985 0 0);
   --sidebar-foreground: oklch(.145 0 0);
   --sidebar-primary: #030213;
@@ -2854,9 +2702,6 @@
   --input-background: oklch(.269 0 0);
   --switch-background: oklch(.439 0 0);
   --ring: oklch(.439 0 0);
-  --font-weight-black: 900;
-  --font-weight-medium: 500;
-  --font-weight-normal: 400;
   --chart-1: oklch(.488 .243 264.376);
   --chart-2: oklch(.696 .17 162.48);
   --chart-3: oklch(.769 .188 70.08);
@@ -2872,8 +2717,63 @@
   --sidebar-ring: oklch(.439 0 0);
 }
 
+* {
+  border-color: var(--border);
+}
+
 html {
   font-size: var(--font-size);
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-family-sans);
+}
+
+.container {
+  width: 100%;
+  margin: 0 auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+@media (width >= 640px) {
+  .container {
+    max-width: 640px;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+}
+
+@media (width >= 768px) {
+  .container {
+    max-width: 768px;
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}
+
+@media (width >= 1024px) {
+  .container {
+    max-width: 1024px;
+  }
+}
+
+@media (width >= 1280px) {
+  .container {
+    max-width: 1280px;
+  }
+}
+
+@media (width >= 1536px) {
+  .container {
+    max-width: 1536px;
+  }
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-family-heading);
 }
 
 @keyframes fade-in {

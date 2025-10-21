@@ -22,8 +22,12 @@ This is a professional SaaS landing page template for video localization and acc
 ### Typography Rules
 - **NEVER** override font sizes, weights, or line-heights with Tailwind classes unless specifically requested
 - Use the typography system defined in `globals.css`
-- Default base font size: 16px
-- Font weights: normal (400), medium (500)
+- **Root Size:** 16px
+- **Type Scale:** Custom (xs: 12px, sm: 14px, base: 16px, lg: 18px, xl: 20px, 2xl: 24px, 3xl: 30px, 4xl: 36px)
+- **Line Heights:** Golden ratio system (1.2, 1.3, 1.4, 1.5, 1.618)
+- **Font Weights:** normal (400), medium (500), black (900)
+- **Fonts:** Inter (UI/body), Satoshi (headings)
+- **Font Loading:** Critical fonts preloaded with `font-display: block` to prevent FOUT
 - **EU GDPR Compliant:** Local fonts hosted instead of Google Fonts to prevent IP leakage
 
 ### Component Guidelines

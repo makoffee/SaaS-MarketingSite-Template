@@ -17,10 +17,10 @@ export function Footer() {
     <footer className="bg-slate-900 text-white">
       {/* Newsletter Section */}
       <div className="border-b border-slate-800">
-        <div className="container py-16">
+        <div className="container py-8 md:py-10">
           <div className="flex flex-col lg:flex-row items-center justify-between gap-8">
             <div className="flex-1 text-center lg:text-left">
-              <h3 className="text-2xl font-bold mb-2">{content.footer.newsletter.headline}</h3>
+              <h3 className="text-2xl font-bold mb-4">{content.footer.newsletter.headline}</h3>
               <p className="text-slate-400">
                 {content.footer.newsletter.description}
               </p>
@@ -40,11 +40,11 @@ export function Footer() {
       </div>
 
       {/* Main Footer */}
-      <div className="container py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-8">
+      <div className="container py-8 md:py-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-10">
           {/* Brand */}
           <div className="lg:col-span-2">
-            <div className="flex items-center space-x-2 mb-4">
+            <div className="flex items-center space-x-2 mb-6">
               <div className="h-8 w-8 rounded-lg bg-gradient-to-br from-indigo-500 to-purple-600" />
               <span className={`${content.company.nameClass} text-xl`}>{content.company.name}</span>
             </div>
@@ -70,8 +70,8 @@ export function Footer() {
           {/* Links */}
           {Object.entries(content.footer.links).map(([category, links]) => (
             <div key={category}>
-              <h4 className="font-semibold mb-4">{category}</h4>
-              <ul className="space-y-3">
+              <h4 className="font-semibold mb-6">{category}</h4>
+              <ul className="space-y-4">
                 {links.map((link) => (
                   <li key={link.name}>
                     <a 
@@ -90,7 +90,7 @@ export function Footer() {
 
       {/* Bottom Bar */}
       <Separator className="bg-slate-800" />
-      <div className="container py-6">
+      <div className="container py-8">
         <div className="flex flex-col sm:flex-row justify-between items-center gap-4 text-sm text-slate-400">
           <p>© {currentYear} {content.company.name}. All rights reserved.</p>
           <div className="flex items-center space-x-6">

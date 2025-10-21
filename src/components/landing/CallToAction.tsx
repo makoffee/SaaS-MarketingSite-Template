@@ -65,11 +65,10 @@ export function CallToAction() {
           variants={uploadReveal.variants}
         >
           <Card className="max-w-4xl mx-auto mb-16 border shadow-lg">
-            <CardContent className="p-8">
-              <div 
-                className="border-2 border-dashed border-muted rounded-lg p-12 text-center hover:border-primary/50 transition-colors cursor-pointer"
-                onClick={handleBrowseClick}
-              >
+            <CardContent 
+              className="p-8 border-2 border-dashed border-muted rounded-lg text-center hover:border-primary/50 transition-colors cursor-pointer"
+              onClick={handleBrowseClick}
+            >
                 <Upload className="w-12 h-12 mx-auto mb-4 text-cyan-500" />
                 <h3 className="text-xl font-semibold mb-2">
                   {selectedFile ? selectedFile.name : content.cta.upload.headline}
@@ -103,7 +102,6 @@ export function CallToAction() {
                   onChange={handleFileSelect}
                   className="hidden"
                 />
-              </div>
             </CardContent>
           </Card>
         </uploadReveal.motion.div>

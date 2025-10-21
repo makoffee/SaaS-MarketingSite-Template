@@ -87,7 +87,6 @@ export function Pricing() {
               </CardHeader>
 
               <CardContent className="space-y-6 pt-0">
-                <div className="w-full">
                   <Button 
                     variant="default"
                     size="lg"
@@ -102,9 +101,8 @@ export function Pricing() {
                     {plan.cta}
                     {!plan.enterprise && <ArrowRight className="ml-2 h-4 w-4" />}
                   </Button>
-                </div>
 
-                <div className="space-y-3">
+                  <div className="space-y-3">
                   {plan.features.map((feature, i) => (
                     <div key={i} className="flex items-start space-x-3">
                       <Check className="w-5 h-5 text-cyan-500 mt-0.5 flex-shrink-0" />
@@ -112,8 +110,6 @@ export function Pricing() {
                     </div>
                   ))}
                 </div>
-
-
               </CardContent>
             </Card>
           ))}

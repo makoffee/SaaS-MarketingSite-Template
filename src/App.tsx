@@ -1,11 +1,4 @@
-/**
- * eysign Landing Page Application
- * Production-ready React application for eysign SaaS platform
- * 
- * @author eysign Team
- * @version 1.0.0
- */
-
+import { useEffect } from 'react';
 import { Navigation } from "./components/landing/Navigation";
 import { Hero } from "./components/landing/Hero";
 import { Features } from "./components/landing/Features";
@@ -16,21 +9,36 @@ import { Footer } from "./components/landing/Footer";
 import { ThemeProvider } from "./components/ThemeProvider";
 
 /**
- * Main Application Component
- * 
- * This is the entry point for the eysign landing page.
- * All components are production-ready and typed for Prismic CMS integration.
- * 
- * @returns {JSX.Element} The complete landing page
+ * Preload critical fonts to prevent FOUT (Flash of Unstyled Text)
  */
+function preloadFonts() {
+  const fonts = [
+    '/fonts/inter/Inter-Regular.woff2',
+    '/fonts/inter/Inter-Medium.woff2',
+    '/fonts/satoshi/Satoshi-Medium.woff2',
+  ];
+
+  fonts.forEach((font) => {
+    const link = document.createElement('link');
+    link.rel = 'preload';
+    link.as = 'font';
+    link.type = 'font/woff2';
+    link.href = font;
+    link.crossOrigin = 'anonymous';
+    document.head.appendChild(link);
+  });
+}
+
 export default function App(): JSX.Element {
+  useEffect(() => {
+    preloadFonts();
+  }, []);
+
   return (
     <ThemeProvider>
       <div className="min-h-screen bg-background">
-        {/* Navigation - Fixed header with theme toggle */}
         <Navigation />
         
-        {/* Main Content Areas */}
         <main role="main">
           <Hero />
           <Features />
@@ -39,7 +47,6 @@ export default function App(): JSX.Element {
           <CallToAction />
         </main>
         
-        {/* Footer - Links and newsletter signup */}
         <Footer />
       </div>
     </ThemeProvider>

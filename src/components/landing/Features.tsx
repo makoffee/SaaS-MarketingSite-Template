@@ -80,7 +80,7 @@ export function Features({
   const gridReveal = useScrollReveal('fadeInUp');
 
   return (
-    <section id="features" className={`relative py-24 overflow-hidden ${className}`}>
+    <section id="features" className={`relative py-24 overflow-hidden${className ? ` ${className}` : ''}`}>
       {/* Background Image */}
       <div className="absolute inset-0">
         <img

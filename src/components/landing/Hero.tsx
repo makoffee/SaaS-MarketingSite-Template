@@ -42,7 +42,7 @@ export function Hero({
   className = ""
 }: HeroProps) {
   return (
-    <section className={`relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-slate-50 via-white to-indigo-50 dark:from-slate-900 dark:via-background dark:to-slate-800 pt-20 md:pt-24 ${className}`}>
+    <section className={`relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-slate-50 via-white to-indigo-50 dark:from-slate-900 dark:via-background dark:to-slate-800 pt-20 md:pt-24${className ? ` ${className}` : ''}`}>
       {/* Background decoration */}
       <div className="absolute inset-0">
         <div className="absolute top-1/4 left-1/4 w-72 h-72 bg-gradient-to-br from-indigo-200/30 to-purple-200/30 dark:from-indigo-500/20 dark:to-purple-500/20 rounded-full blur-3xl" />
@@ -50,8 +50,7 @@ export function Hero({
         <div className="absolute top-1/2 right-1/3 w-64 h-64 bg-gradient-to-br from-cyan-500/25 to-teal-500/25 dark:from-cyan-500/15 dark:to-teal-500/15 rounded-full blur-3xl" />
       </div>
 
-      <div className="container relative z-10">
-        <div className="flex flex-col items-center text-center space-y-8 w-full max-w-5xl mx-auto">
+      <div className="container relative z-10 flex flex-col items-center text-center space-y-8 max-w-5xl mx-auto">
           {/* Badge */}
           <Badge variant="secondary" className="px-4 py-2 text-sm font-medium">
             {heroContent.badge.icon === "zap" && <Zap className="w-4 h-4 mr-2" />}
@@ -125,7 +124,6 @@ export function Hero({
               </div>
             </div>
           </div>
-        </div>
       </div>
     </section>
   );

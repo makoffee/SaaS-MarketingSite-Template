@@ -301,10 +301,8 @@ export function MultilingualTypewriterH1({
   // ============================================================================
 
   return (
-    <div 
-      className={`text-3xl sm:text-4xl md:text-5xl lg:text-5xl xl:text-5xl 2xl:text-6xl tracking-tight font-black w-full min-h-[160px] md:min-h-[180px] lg:min-h-[200px] xl:min-h-[200px] 2xl:min-h-[240px] flex items-center justify-center text-center ${className}`}
-    >
-      <h1 className="w-full">
+    <div className={`w-full min-h-[160px] md:min-h-[180px] lg:min-h-[200px] xl:min-h-[200px] 2xl:min-h-[240px] flex items-center justify-center text-center${className ? ` ${className}` : ''}`}>
+      <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-5xl xl:text-5xl 2xl:text-6xl tracking-tight font-black w-full">
         {renderStyledText()}
       </h1>
     </div>
