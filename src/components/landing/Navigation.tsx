@@ -29,6 +29,7 @@ interface NavigationProps {
   content?: NavigationContent;
   className?: string;
   onGetStarted?: () => void;
+  onLogin?: () => void;
   onLogoClick?: () => void;
 }
 
@@ -36,6 +37,7 @@ export function Navigation({
   content: navigationContent = content.navigation,
   className = "",
   onGetStarted,
+  onLogin,
   onLogoClick
 }: NavigationProps) {
   const [isOpen, setIsOpen] = useState(false);
@@ -76,7 +78,7 @@ export function Navigation({
         {/* Desktop Actions */}
         <div className="hidden md:flex items-center space-x-4">
           <ThemeToggle />
-          <Button variant="ghost" size="sm" onClick={onGetStarted}>
+          <Button variant="ghost" size="sm" onClick={onLogin}>
             {navigationContent.auth.login}
           </Button>
           <Button size="sm" className="bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white" onClick={onGetStarted}>
@@ -128,7 +130,7 @@ export function Navigation({
             
             {/* Mobile Actions */}
             <div className="pt-4 border-t border-border/20 space-y-3">
-              <Button variant="ghost" size="sm" className="w-full justify-start" onClick={() => { setIsOpen(false); onGetStarted?.(); }}>
+              <Button variant="ghost" size="sm" className="w-full justify-start" onClick={() => { setIsOpen(false); onLogin?.(); }}>
                 {navigationContent.auth.login}
               </Button>
               <Button size="sm" className="w-full bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white" onClick={() => { setIsOpen(false); onGetStarted?.(); }}>

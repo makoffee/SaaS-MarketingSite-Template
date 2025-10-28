@@ -278,7 +278,7 @@ export function DashboardOverview() {
 
       {/* Recent Activity */}
       <Card className="shadow-sm hover:shadow-md transition-shadow duration-300 bg-muted/25">
-        <CardHeader className="p-4 sm:p-6">
+        <CardHeader className="px-4 sm:px-6 pt-4 sm:pt-6 pb-2">
           <div className="flex items-center justify-between">
             <div>
               <CardTitle>Recent Activity</CardTitle>
@@ -288,7 +288,7 @@ export function DashboardOverview() {
             </Button>
           </div>
         </CardHeader>
-        <CardContent className="p-4 sm:p-6">
+        <CardContent className="px-4 sm:px-6 pt-0 pb-4 sm:pb-6">
           <div className="space-y-2 sm:space-y-4">
             {recentProjects.map((project) => (
               <div

@@ -18,13 +18,28 @@ The application has three main views:
 
 ```
 Landing Page
-    ↓ (Click "Get eysign" or "Login")
-Auth Screen (Login/Signup tabs)
-    ↓ (Successful login/signup)
+    ↓ (Click "Login" button)
+Auth Screen (Login mode)
+    ↓ (Successful login)
+Dashboard
+    ↓ (Click "Logout")
+Landing Page
+
+OR
+
+Landing Page
+    ↓ (Click "Get eysign" button)
+Auth Screen (Signup mode)
+    ↓ (Successful signup)
 Dashboard
     ↓ (Click "Logout")
 Landing Page
 ```
+
+**Navigation Buttons:**
+- **"Login"** button in header → Routes to `/auth?mode=login` (shows login form)
+- **"Get eysign"** button in header → Routes to `/auth?mode=signup` (shows signup form)
+- **"Get Started"** buttons throughout landing page → Routes to `/auth?mode=signup` (shows signup form)
 
 ### Components
 

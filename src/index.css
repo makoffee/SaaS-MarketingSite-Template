@@ -3600,8 +3600,14 @@
   }
 
   @media (width >= 40rem) {
-    .sm\:p-6 {
-      padding: calc(var(--spacing) * 6);
+    .sm\:px-6 {
+      padding-inline: calc(var(--spacing) * 6);
+    }
+  }
+
+  @media (width >= 40rem) {
+    .sm\:pt-6 {
+      padding-top: calc(var(--spacing) * 6);
     }
   }
 
@@ -3614,6 +3620,12 @@
   @media (width >= 40rem) {
     .sm\:pr-\[16px\] {
       padding-right: 16px;
+    }
+  }
+
+  @media (width >= 40rem) {
+    .sm\:pb-6 {
+      padding-bottom: calc(var(--spacing) * 6);
     }
   }
 

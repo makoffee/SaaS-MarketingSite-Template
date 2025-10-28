@@ -57,6 +57,10 @@ function LandingPage() {
     navigate('/auth?mode=signup');
   };
 
+  const handleLogin = () => {
+    navigate('/auth?mode=login');
+  };
+
   const handlePlanSelect = (planName: string) => {
     // Flow 2: User selects plan from pricing page > creates account > app dashboard
     navigate(`/auth?mode=signup&plan=${encodeURIComponent(planName)}`);
@@ -68,7 +72,7 @@ function LandingPage() {
 
   return (
     <>
-      <Navigation onGetStarted={handleGetStarted} onLogoClick={handleNavigateHome} />
+      <Navigation onGetStarted={handleGetStarted} onLogin={handleLogin} onLogoClick={handleNavigateHome} />
       
       <main role="main">
         <Hero onGetStarted={handleGetStarted} />
