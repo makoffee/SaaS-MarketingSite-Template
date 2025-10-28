@@ -335,9 +335,11 @@ export function ProjectsView({ initialSearchQuery = "" }: ProjectsViewProps) {
   return (
     <div className="space-y-4">
       <div className="flex flex-col gap-3">
-        <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-          <div className="flex items-center gap-2 flex-wrap flex-1">
-            <div className="relative w-full sm:w-64">
+        {/* Top Row: Search/Filters + Actions */}
+        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+          {/* Left: Search + Filters */}
+          <div className="flex items-center gap-2 flex-wrap">
+            <div className="relative flex-1 md:flex-initial md:w-64">
               <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
               <Input
                 placeholder="Search projects..."
@@ -355,7 +357,7 @@ export function ProjectsView({ initialSearchQuery = "" }: ProjectsViewProps) {
                   className="gap-2 shrink-0 h-9"
                 >
                   <Filter className="h-4 w-4" />
-                  <span>Filters</span>
+                  <span className="hidden md:inline">Filters</span>
                   {activeFilterCount > 0 && (
                     <Badge variant="secondary" className="h-5 px-1.5 rounded-full ml-0.5">
                       {activeFilterCount}
@@ -428,7 +430,7 @@ export function ProjectsView({ initialSearchQuery = "" }: ProjectsViewProps) {
           </div>
 
           {/* Right: Actions */}
-          <div className="flex items-center gap-2 flex-wrap">
+          <div className="flex items-center gap-2 flex-wrap justify-end order-first md:order-last">
             {/* Time Badge */}
             <Badge variant="outline" className="h-9 px-3 gap-2 shrink-0">
               <span className="text-muted-foreground">1500min</span>
@@ -438,9 +440,9 @@ export function ProjectsView({ initialSearchQuery = "" }: ProjectsViewProps) {
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="outline" className="gap-2 shrink-0">
-                  <span className="hidden sm:inline">Actions</span>
-                  <span className="sm:hidden">•••</span>
-                  <ChevronDown className="h-4 w-4 hidden sm:inline-block" />
+                  <span className="hidden md:inline">Actions</span>
+                  <span className="md:hidden">•••</span>
+                  <ChevronDown className="h-4 w-4 hidden md:inline-block" />
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end" className="w-48">

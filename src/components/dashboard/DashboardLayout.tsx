@@ -240,7 +240,7 @@ function SidebarContent({ isCollapsed = false, activeView = 'dashboard', onNavig
             <Button 
               variant="secondary" 
               size="sm" 
-              className="w-full mt-3 bg-muted text-muted-foreground hover:bg-muted/80"
+              className="w-full mt-3 bg-violet-500/20 text-violet-700 dark:text-violet-300 hover:bg-violet-500/30 border-violet-200/60 dark:border-violet-500/30"
             >
               Add more
             </Button>

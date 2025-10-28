@@ -6,6 +6,19 @@ import { Progress } from "../ui/progress";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
 import { AspectRatio } from "../ui/aspect-ratio";
 import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "../ui/dropdown-menu";
+import {
+  Tooltip as UITooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "../ui/tooltip";
+import {
   BarChart,
   Bar,
   XAxis,
@@ -32,7 +45,12 @@ import {
   CheckCircle2,
   Download,
   Sparkles,
-  BarChart3
+  BarChart3,
+  FileText,
+  FileCode,
+  File,
+  RefreshCw,
+  Pause
 } from "lucide-react";
 
 const statsData = [
@@ -143,10 +161,10 @@ export function DashboardOverview() {
       <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
         <div>
           <p className="text-muted-foreground">
-            Welcome back John Doe! You have 3 notifications.
+            Welcome back <span className="font-medium">John Doe</span>! You have <span className="font-medium">3</span> notifications.
           </p>
         </div>
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 justify-end">
           <Button variant="outline">
             Export
           </Button>
@@ -260,7 +278,7 @@ export function DashboardOverview() {
 
       {/* Recent Activity */}
       <Card className="shadow-sm hover:shadow-md transition-shadow duration-300 bg-muted/25">
-        <CardHeader>
+        <CardHeader className="p-4 sm:p-6">
           <div className="flex items-center justify-between">
             <div>
               <CardTitle>Recent Activity</CardTitle>
@@ -270,12 +288,12 @@ export function DashboardOverview() {
             </Button>
           </div>
         </CardHeader>
-        <CardContent>
-          <div className="space-y-4">
+        <CardContent className="p-4 sm:p-6">
+          <div className="space-y-2 sm:space-y-4">
             {recentProjects.map((project) => (
               <div
                 key={project.id}
-                className="flex items-center justify-between rounded-lg border p-4 transition-colors hover:bg-muted/40"
+                className="flex items-center justify-between rounded-lg border p-2 sm:p-4 transition-colors hover:bg-muted/40"
               >
                 <div className="flex items-center gap-4">
                   <div className="w-16 shrink-0">
@@ -283,14 +301,20 @@ export function DashboardOverview() {
                       <div className="h-full w-full rounded bg-muted" />
                     </AspectRatio>
                   </div>
-                  <div className="space-y-1">
-                    <p className="text-sm leading-none">{project.title}</p>
-                    <div className="flex items-center gap-3 text-sm text-muted-foreground">
+                  <div className="space-y-1 min-w-0">
+                    <p className="text-sm leading-none truncate">{project.title}</p>
+                    <div className="hidden sm:flex items-center gap-3 text-sm text-muted-foreground">
                       <span className="flex items-center gap-1">
                         <Clock className="h-3 w-3" />
                         {project.duration}
                       </span>
                       <span>{project.updatedAt}</span>
+                    </div>
+                    <div className="flex sm:hidden text-sm text-muted-foreground">
+                      {project.status === "Processing" && "In progress"}
+                      {project.status === "Completed" && "Completed"}
+                      {project.status === "Failed" && "Failed"}
+                      {project.status === "Draft" && "Created"}
                     </div>
                   </div>
                 </div>
@@ -306,11 +330,28 @@ export function DashboardOverview() {
 
                   <div className="flex items-center gap-2">
                     {project.status === "Processing" && (
-                      <div className="w-20">
-                        <Progress 
-                          value={project.progress} 
-                          className="h-1 bg-indigo-500/20 dark:bg-indigo-500/20 [&>div]:bg-gradient-to-r [&>div]:from-indigo-500 [&>div]:to-purple-600" 
-                        />
+                      <div className="flex flex-col sm:flex-row sm:items-center gap-2 flex-1">
+                        <div className="w-full sm:w-20">
+                          <Progress 
+                            value={project.progress} 
+                            className="h-1 bg-indigo-500/20 dark:bg-indigo-500/20 [&>div]:bg-gradient-to-r [&>div]:from-indigo-500 [&>div]:to-purple-600" 
+                          />
+                        </div>
+                        <UITooltip>
+                          <TooltipTrigger asChild>
+                            <Button
+                              size="icon"
+                              variant="ghost"
+                              className="h-8 w-8 rounded-full shrink-0 self-end sm:self-auto"
+                              onClick={() => {}}
+                            >
+                              <Pause className="h-4 w-4" />
+                            </Button>
+                          </TooltipTrigger>
+                          <TooltipContent>
+                            <p>Pause job</p>
+                          </TooltipContent>
+                        </UITooltip>
                       </div>
                     )}
                     {project.status === "Completed" && (
@@ -322,10 +363,80 @@ export function DashboardOverview() {
                         >
                           {project.status}
                         </Badge>
-                        <Button variant="ghost" size="icon" className="shrink-0">
-                          <Download className="h-4 w-4" />
-                        </Button>
+                        <DropdownMenu>
+                          <DropdownMenuTrigger asChild>
+                            <Button
+                              size="icon"
+                              variant="ghost"
+                              className="h-8 w-8 rounded-full shrink-0"
+                            >
+                              <Download className="h-4 w-4" />
+                            </Button>
+                          </DropdownMenuTrigger>
+                          <DropdownMenuContent align="end" className="w-56">
+                            <DropdownMenuLabel>Download Format</DropdownMenuLabel>
+                            <DropdownMenuSeparator />
+                            <DropdownMenuItem>
+                              <FileText className="mr-2 h-4 w-4" />
+                              SRT (SubRip)
+                            </DropdownMenuItem>
+                            <DropdownMenuItem>
+                              <FileCode className="mr-2 h-4 w-4" />
+                              WebVTT
+                            </DropdownMenuItem>
+                            <DropdownMenuItem>
+                              <FileText className="mr-2 h-4 w-4" />
+                              ASS (Advanced SubStation Alpha)
+                            </DropdownMenuItem>
+                            <DropdownMenuItem>
+                              <File className="mr-2 h-4 w-4" />
+                              STL (Spruce Subtitle File)
+                            </DropdownMenuItem>
+                            <DropdownMenuItem>
+                              <FileCode className="mr-2 h-4 w-4" />
+                              SCC (Scenarist Closed Caption)
+                            </DropdownMenuItem>
+                            <DropdownMenuItem>
+                              <FileCode className="mr-2 h-4 w-4" />
+                              TTML (Timed Text Markup Language)
+                            </DropdownMenuItem>
+                            <DropdownMenuItem>
+                              <FileText className="mr-2 h-4 w-4" />
+                              LRC (Lyrics Format)
+                            </DropdownMenuItem>
+                          </DropdownMenuContent>
+                        </DropdownMenu>
                       </>
+                    )}
+                    {project.status === "Failed" && (
+                      <>
+                        <Badge
+                          variant="outline"
+                          className="border-red-500/30 bg-red-500/10 text-red-600 dark:text-red-400"
+                        >
+                          Failed
+                        </Badge>
+                        <UITooltip>
+                          <TooltipTrigger asChild>
+                            <Button
+                              size="icon"
+                              variant="ghost"
+                              className="h-8 w-8 rounded-full shrink-0"
+                              onClick={() => {}}
+                            >
+                              <RefreshCw className="h-4 w-4" />
+                            </Button>
+                          </TooltipTrigger>
+                          <TooltipContent>
+                            <p>Retry job</p>
+                          </TooltipContent>
+                        </UITooltip>
+                      </>
+                    )}
+                    {project.status === "Draft" && (
+                      <Badge variant="outline" className="shrink-0">
+                        Draft
+                      </Badge>
                     )}
                   </div>
                 </div>
