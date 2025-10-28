@@ -4,6 +4,7 @@
  */
 
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { ArrowRight, Menu, X } from "lucide-react";
 import { Button } from "../ui/button";
 import { ThemeToggle } from "../ThemeToggle";
@@ -41,22 +42,31 @@ export function Navigation({
 
   return (
     <nav className={`fixed top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60${className ? ` ${className}` : ''}`}>
-      <div className="container flex h-16 items-center">
+      <div className="max-w-7xl mx-auto flex h-16 items-center px-4 md:px-2 lg:px-8">
         {/* Logo */}
-        <button 
-          onClick={onLogoClick}
+        <Link 
+          to="/"
           className="flex items-center hover:opacity-80 transition-opacity"
         >
           <Logo className="h-7 w-auto" />
-        </button>
+        </Link>
         
         {/* Desktop Navigation */}
         <div className="hidden md:flex flex-1 items-center justify-center space-x-8">
           {navigationContent.links.map((link, index) => (
             <a 
               key={index}
-              href={link.href} 
+              href={link.href}
               className="text-sm font-medium hover:text-primary transition-colors"
+              onClick={(e) => {
+                if (link.href.startsWith('#')) {
+                  e.preventDefault();
+                  const element = document.getElementById(link.href.replace('#', ''));
+                  if (element) {
+                    element.scrollIntoView({ behavior: 'smooth' });
+                  }
+                }
+              }}
             >
               {link.text}
             </a>
@@ -92,15 +102,24 @@ export function Navigation({
       {/* Mobile Menu */}
       {isOpen && (
         <div className="md:hidden border-t border-border/40 bg-background/95 backdrop-blur">
-          <div className="container py-4 space-y-4">
+          <div className="max-w-7xl mx-auto py-4 px-4 space-y-4">
             {/* Mobile Navigation Links */}
             <div className="space-y-3">
               {navigationContent.links.map((link, index) => (
                 <a 
                   key={index}
-                  href={link.href} 
+                  href={link.href}
                   className="block text-sm font-medium hover:text-primary transition-colors py-2"
-                  onClick={() => setIsOpen(false)}
+                  onClick={(e) => {
+                    setIsOpen(false);
+                    if (link.href.startsWith('#')) {
+                      e.preventDefault();
+                      const element = document.getElementById(link.href.replace('#', ''));
+                      if (element) {
+                        element.scrollIntoView({ behavior: 'smooth' });
+                      }
+                    }
+                  }}
                 >
                   {link.text}
                 </a>

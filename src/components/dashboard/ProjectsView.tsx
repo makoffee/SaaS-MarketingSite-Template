@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { Badge } from "../ui/badge";
@@ -159,18 +159,27 @@ const mockProjects: Project[] = [
 type FilterStatus = "all" | "completed" | "processing" | "failed";
 type FilterLanguage = "all" | "EN" | "DE" | "FR" | "ES" | "IT" | "PT" | "NL" | "PL" | "RU" | "JA" | "KO" | "ZH";
 
-export function ProjectsView() {
+interface ProjectsViewProps {
+  initialSearchQuery?: string;
+}
+
+export function ProjectsView({ initialSearchQuery = "" }: ProjectsViewProps) {
   const [selectedProjects, setSelectedProjects] = useState<string[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [searchQuery, setSearchQuery] = useState("");
+  const [searchQuery, setSearchQuery] = useState(initialSearchQuery);
   const [statusFilter, setStatusFilter] = useState<FilterStatus>("all");
   const [languageFilter, setLanguageFilter] = useState<FilterLanguage>("all");
-  const [statusPopoverOpen, setStatusPopoverOpen] = useState(false);
-  const [languagePopoverOpen, setLanguagePopoverOpen] = useState(false);
+  const [filterPopoverOpen, setFilterPopoverOpen] = useState(false);
   
   const totalProjects = 1000;
   const projectsPerPage = 10;
   const totalPages = Math.ceil(totalProjects / projectsPerPage);
+
+  useEffect(() => {
+    if (initialSearchQuery) {
+      setSearchQuery(initialSearchQuery);
+    }
+  }, [initialSearchQuery]);
 
   const toggleProjectSelection = (projectId: string) => {
     setSelectedProjects((prev) =>
@@ -298,6 +307,7 @@ export function ProjectsView() {
   };
 
   const hasActiveFilters = searchQuery !== "" || statusFilter !== "all" || languageFilter !== "all";
+  const activeFilterCount = (statusFilter !== "all" ? 1 : 0) + (languageFilter !== "all" ? 1 : 0);
 
   const statusOptions: { value: FilterStatus; label: string; icon?: React.ReactNode }[] = [
     { value: "all", label: "All statuses" },
@@ -324,13 +334,9 @@ export function ProjectsView() {
 
   return (
     <div className="space-y-4">
-      {/* Top Toolbar */}
       <div className="flex flex-col gap-3">
-        {/* Main Toolbar Row */}
         <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-          {/* Left: Search + Filter Badges */}
           <div className="flex items-center gap-2 flex-wrap flex-1">
-            {/* Search Input */}
             <div className="relative w-full sm:w-64">
               <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
               <Input
@@ -341,76 +347,81 @@ export function ProjectsView() {
               />
             </div>
 
-            {/* Status Filter Badge */}
-            <Popover open={statusPopoverOpen} onOpenChange={setStatusPopoverOpen}>
+            {/* Popover: Unified filter dropdown */}
+            <Popover open={filterPopoverOpen} onOpenChange={setFilterPopoverOpen}>
               <PopoverTrigger asChild>
                 <Button 
                   variant="outline" 
                   className="gap-2 shrink-0 h-9"
                 >
-                  {statusFilter !== "all" && statusOptions.find(opt => opt.value === statusFilter)?.icon}
-                  <span>
-                    {statusFilter === "all" ? "Status" : statusOptions.find(opt => opt.value === statusFilter)?.label}
-                  </span>
+                  <Filter className="h-4 w-4" />
+                  <span>Filters</span>
+                  {activeFilterCount > 0 && (
+                    <Badge variant="secondary" className="h-5 px-1.5 rounded-full ml-0.5">
+                      {activeFilterCount}
+                    </Badge>
+                  )}
                   <ChevronDown className="h-4 w-4 text-muted-foreground" />
                 </Button>
               </PopoverTrigger>
-              <PopoverContent className="w-56 p-0" align="start">
-                <div className="p-1">
-                  {statusOptions.map((option) => (
-                    <button
-                      key={option.value}
-                      onClick={() => {
-                        setStatusFilter(option.value);
-                        setStatusPopoverOpen(false);
-                      }}
-                      className={`flex w-full items-center gap-2 rounded-md px-2 py-1.5 text-sm transition-colors hover:bg-muted ${
-                        statusFilter === option.value ? "bg-muted" : ""
-                      }`}
-                    >
-                      {option.icon && <span className="shrink-0">{option.icon}</span>}
-                      <span className="flex-1 text-left">{option.label}</span>
-                      {statusFilter === option.value && (
-                        <CheckCircle2 className="h-4 w-4 text-primary shrink-0" />
-                      )}
-                    </button>
-                  ))}
-                </div>
-              </PopoverContent>
-            </Popover>
+              <PopoverContent className="w-64 p-0" align="start">
+                <div className="p-3 space-y-4">
+                  <div className="space-y-2">
+                    <label className="text-sm font-medium">Status</label>
+                    <div className="space-y-1">
+                      {statusOptions.map((option) => (
+                        <button
+                          key={option.value}
+                          onClick={() => setStatusFilter(option.value)}
+                          className={`flex w-full items-center gap-2 rounded-md px-2 py-1.5 text-sm transition-colors hover:bg-muted ${
+                            statusFilter === option.value ? "bg-muted" : ""
+                          }`}
+                        >
+                          {option.icon && <span className="shrink-0">{option.icon}</span>}
+                          <span className="flex-1 text-left">{option.label}</span>
+                          {statusFilter === option.value && (
+                            <CheckCircle2 className="h-4 w-4 text-primary shrink-0" />
+                          )}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
 
-            {/* Language Filter Badge */}
-            <Popover open={languagePopoverOpen} onOpenChange={setLanguagePopoverOpen}>
-              <PopoverTrigger asChild>
-                <Button 
-                  variant="outline" 
-                  className="gap-2 shrink-0 h-9"
-                >
-                  <span>
-                    {languageFilter === "all" ? "Language" : languageOptions.find(opt => opt.value === languageFilter)?.label}
-                  </span>
-                  <ChevronDown className="h-4 w-4 text-muted-foreground" />
-                </Button>
-              </PopoverTrigger>
-              <PopoverContent className="w-56 p-0" align="start">
-                <div className="p-1 max-h-80 overflow-y-auto">
-                  {languageOptions.map((option) => (
-                    <button
-                      key={option.value}
-                      onClick={() => {
-                        setLanguageFilter(option.value);
-                        setLanguagePopoverOpen(false);
-                      }}
-                      className={`flex w-full items-center gap-2 rounded-md px-2 py-1.5 text-sm transition-colors hover:bg-muted ${
-                        languageFilter === option.value ? "bg-muted" : ""
-                      }`}
-                    >
-                      <span className="flex-1 text-left">{option.label}</span>
-                      {languageFilter === option.value && (
-                        <CheckCircle2 className="h-4 w-4 text-primary shrink-0" />
-                      )}
-                    </button>
-                  ))}
+                  <div className="border-t pt-3 space-y-2">
+                    <label className="text-sm font-medium">Language</label>
+                    <div className="space-y-1 max-h-60 overflow-y-auto">
+                      {languageOptions.map((option) => (
+                        <button
+                          key={option.value}
+                          onClick={() => setLanguageFilter(option.value)}
+                          className={`flex w-full items-center gap-2 rounded-md px-2 py-1.5 text-sm transition-colors hover:bg-muted ${
+                            languageFilter === option.value ? "bg-muted" : ""
+                          }`}
+                        >
+                          <span className="flex-1 text-left">{option.label}</span>
+                          {languageFilter === option.value && (
+                            <CheckCircle2 className="h-4 w-4 text-primary shrink-0" />
+                          )}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+                  {activeFilterCount > 0 && (
+                    <div className="border-t pt-3">
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        onClick={() => {
+                          setStatusFilter("all");
+                          setLanguageFilter("all");
+                        }}
+                        className="w-full text-sm"
+                      >
+                        Clear filters
+                      </Button>
+                    </div>
+                  )}
                 </div>
               </PopoverContent>
             </Popover>

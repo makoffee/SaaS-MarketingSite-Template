@@ -4,6 +4,7 @@
  */
 
 import { Button } from "../ui/button";
+import { Link } from "react-router-dom";
 import { Play, ArrowRight, Upload, Zap, Globe, Shield, Bot } from "lucide-react";
 import { Badge } from "../ui/badge";
 import { content } from "../../config/content";
@@ -69,9 +70,11 @@ export function Hero({
 
           {/* CTAs */}
           <div className="flex flex-col sm:flex-row gap-4 pt-4">
-            <Button size="lg" className="h-12 px-8 bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white">
-              {heroContent.cta.primary}
-              <ArrowRight className="ml-2 h-5 w-5" />
+            <Button asChild size="lg" className="h-12 px-8 bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white">
+              <Link to="/auth">
+                {heroContent.cta.primary}
+                <ArrowRight className="ml-2 h-5 w-5" />
+              </Link>
             </Button>
             <Button variant="outline" size="lg" className="h-12 px-8">
               <Play className="mr-2 h-5 w-5" />

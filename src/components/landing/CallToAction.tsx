@@ -1,4 +1,5 @@
 import { Button } from "../ui/button";
+import { Link } from "react-router-dom";
 import { Input } from "../ui/input";
 import { ArrowRight, Upload, Zap, Shield, Globe, Check, Bot } from "lucide-react";
 import { Card, CardContent } from "../ui/card";
@@ -27,7 +28,7 @@ export function CallToAction() {
   };
 
   return (
-    <section className="py-24 bg-white dark:bg-background relative overflow-hidden">
+    <section id="enterprise" className="py-24 bg-white dark:bg-background relative overflow-hidden">
       {/* Background decoration */}
       <div className="absolute inset-0">
         <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/5 rounded-full blur-3xl" />
@@ -112,9 +113,11 @@ export function CallToAction() {
           variants={ctaReveal.variants}
           className="flex flex-col sm:flex-row gap-4 justify-center mb-16"
         >
-          <Button size="lg" className="h-12 px-8 bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white">
-            {content.cta.buttons.primary}
-            <ArrowRight className="ml-2 h-5 w-5" />
+          <Button asChild size="lg" className="h-12 px-8 bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white">
+            <Link to="/auth">
+              {content.cta.buttons.primary}
+              <ArrowRight className="ml-2 h-5 w-5" />
+            </Link>
           </Button>
           <Button 
             size="lg" 

@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { BrowserRouter, Routes, Route, Navigate, useNavigate, useLocation } from 'react-router-dom';
 import { Navigation } from "./components/landing/Navigation";
 import { Hero } from "./components/landing/Hero";
 import { Features } from "./components/landing/Features";
@@ -30,13 +31,132 @@ function preloadFonts() {
   });
 }
 
-type ViewType = 'landing' | 'auth' | 'dashboard';
 type DashboardView = 'dashboard' | 'projects' | 'analytics' | 'team' | 'billing' | 'settings' | 'support';
 
-export default function App(): JSX.Element {
-  const [currentView, setCurrentView] = useState<ViewType>('landing');
-  const [activeDashboardView, setActiveDashboardView] = useState<DashboardView>('dashboard');
+// Landing page wrapper component
+function LandingPage() {
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  useEffect(() => {
+    // Handle hash navigation for landing page sections
+    if (location.hash) {
+      const id = location.hash.replace('#', '');
+      const element = document.getElementById(id);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    } else {
+      // Scroll to top when navigating to landing page
+      window.scrollTo(0, 0);
+    }
+  }, [location]);
+
+  const handleGetStarted = () => {
+    navigate('/auth');
+  };
+
+  const handleNavigateHome = () => {
+    navigate('/');
+  };
+
+  return (
+    <>
+      <Navigation onGetStarted={handleGetStarted} onLogoClick={handleNavigateHome} />
+      
+      <main role="main">
+        <Hero />
+        <Features />
+        <Solutions />
+        <Pricing />
+        <CallToAction />
+      </main>
+      
+      <Footer />
+    </>
+  );
+}
+
+// Auth page wrapper component
+function AuthPage({ onLogin }: { onLogin: () => void }) {
+  const navigate = useNavigate();
+
+  const handleBackToLanding = () => {
+    navigate('/');
+  };
+
+  return <AuthScreen onLogin={onLogin} onBackToLanding={handleBackToLanding} />;
+}
+
+// Dashboard wrapper component
+function DashboardPage({ onLogout }: { onLogout: () => void }) {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const [projectsSearchQuery, setProjectsSearchQuery] = useState<string>('');
+
+  // Determine active view from URL
+  const getActiveView = (): DashboardView => {
+    const path = location.pathname;
+    if (path === '/app/projects') return 'projects';
+    if (path === '/app/analytics') return 'analytics';
+    if (path === '/app/team') return 'team';
+    if (path === '/app/billing') return 'billing';
+    if (path === '/app/settings') return 'settings';
+    if (path === '/app/support') return 'support';
+    return 'dashboard';
+  };
+
+  const handleNavigate = (view: DashboardView) => {
+    if (view === 'dashboard') {
+      navigate('/app');
+    } else {
+      navigate(`/app/${view}`);
+    }
+  };
+
+  const handleSearchProjects = (query: string) => {
+    setProjectsSearchQuery(query);
+    navigate('/app/projects');
+  };
+
+  const activeView = getActiveView();
+
+  return (
+    <DashboardLayout 
+      onLogout={onLogout}
+      activeView={activeView}
+      onNavigate={handleNavigate}
+      onSearch={handleSearchProjects}
+    >
+      <Routes>
+        <Route path="/" element={<DashboardOverview />} />
+        <Route path="/projects" element={<ProjectsView initialSearchQuery={projectsSearchQuery} />} />
+        <Route path="/analytics" element={<PlaceholderView title="Analytics" />} />
+        <Route path="/team" element={<PlaceholderView title="Team" />} />
+        <Route path="/billing" element={<PlaceholderView title="Billing" />} />
+        <Route path="/settings" element={<PlaceholderView title="Settings" />} />
+        <Route path="/support" element={<PlaceholderView title="Support" />} />
+      </Routes>
+    </DashboardLayout>
+  );
+}
+
+// Placeholder view for unimplemented dashboard sections
+function PlaceholderView({ title }: { title: string }) {
+  return (
+    <div className="flex items-center justify-center h-[calc(100vh-4rem)]">
+      <div className="text-center">
+        <h1 className="text-muted-foreground">{title} View</h1>
+        <p className="text-sm text-muted-foreground mt-2">Coming soon...</p>
+      </div>
+    </div>
+  );
+}
+
+// Main App component with routing
+function AppContent() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     preloadFonts();
@@ -44,56 +164,40 @@ export default function App(): JSX.Element {
 
   const handleLogin = () => {
     setIsAuthenticated(true);
-    setCurrentView('dashboard');
+    navigate('/app');
   };
 
   const handleLogout = () => {
     setIsAuthenticated(false);
-    setCurrentView('landing');
-  };
-
-  const handleGetStarted = () => {
-    setCurrentView('auth');
-  };
-
-  const handleNavigateHome = () => {
-    setCurrentView('landing');
+    navigate('/');
   };
 
   return (
+    <div className="min-h-screen bg-background">
+      <Routes>
+        {/* Public routes */}
+        <Route path="/" element={<LandingPage />} />
+        <Route path="/auth" element={<AuthPage onLogin={handleLogin} />} />
+        
+        {/* Protected routes */}
+        <Route 
+          path="/app/*" 
+          element={isAuthenticated ? <DashboardPage onLogout={handleLogout} /> : <Navigate to="/auth" />} 
+        />
+
+        {/* Catch-all redirect */}
+        <Route path="*" element={<Navigate to="/" />} />
+      </Routes>
+    </div>
+  );
+}
+
+export default function App(): JSX.Element {
+  return (
     <ThemeProvider>
-      <div className="min-h-screen bg-background">
-        {currentView === 'landing' && (
-          <>
-            <Navigation onGetStarted={handleGetStarted} onLogoClick={handleNavigateHome} />
-            
-            <main role="main">
-              <Hero />
-              <Features />
-              <Solutions />
-              <Pricing />
-              <CallToAction />
-            </main>
-            
-            <Footer />
-          </>
-        )}
-
-        {currentView === 'auth' && (
-          <AuthScreen onLogin={handleLogin} onBackToLanding={handleNavigateHome} />
-        )}
-
-        {currentView === 'dashboard' && (
-          <DashboardLayout 
-            onLogout={handleLogout}
-            activeView={activeDashboardView}
-            onNavigate={setActiveDashboardView}
-          >
-            {activeDashboardView === 'dashboard' && <DashboardOverview />}
-            {activeDashboardView === 'projects' && <ProjectsView />}
-          </DashboardLayout>
-        )}
-      </div>
+      <BrowserRouter>
+        <AppContent />
+      </BrowserRouter>
     </ThemeProvider>
   );
 }

@@ -529,7 +529,11 @@ const steps: OnboardingStep[] = [
   },
 ];
 
-export function OnboardingFlow() {
+interface OnboardingFlowProps {
+  onComplete?: () => void;
+}
+
+export function OnboardingFlow({ onComplete }: OnboardingFlowProps) {
   const [currentStep, setCurrentStep] = useState(0);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
@@ -546,8 +550,11 @@ export function OnboardingFlow() {
   };
 
   const completeOnboarding = () => {
-    // Redirect to dashboard or show success message
-    window.location.href = '/dashboard';
+    if (onComplete) {
+      onComplete();
+    } else {
+      window.location.href = '/app';
+    }
   };
 
   const CurrentStepComponent = steps[currentStep].component;

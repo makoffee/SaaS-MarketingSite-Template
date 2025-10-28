@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../ui/card";
 import { Button } from "../ui/button";
 import { Badge } from "../ui/badge";
@@ -141,9 +142,8 @@ export function DashboardOverview() {
       {/* Header */}
       <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
         <div>
-          <h2 className="tracking-tight">Dashboard</h2>
           <p className="text-muted-foreground">
-            Welcome back! Here's an overview of your projects.
+            Welcome back John Doe! You have 3 notifications.
           </p>
         </div>
         <div className="flex items-center gap-2">
@@ -258,15 +258,15 @@ export function DashboardOverview() {
         </Card>
       </div>
 
-      {/* Recent Projects */}
+      {/* Recent Activity */}
       <Card className="shadow-sm hover:shadow-md transition-shadow duration-300 bg-muted/25">
         <CardHeader>
           <div className="flex items-center justify-between">
             <div>
-              <CardTitle>Recent Projects</CardTitle>
+              <CardTitle>Recent Activity</CardTitle>
             </div>
-            <Button variant="outline" size="sm">
-              View All
+            <Button asChild variant="outline" size="sm">
+              <Link to="/app/projects">View All</Link>
             </Button>
           </div>
         </CardHeader>

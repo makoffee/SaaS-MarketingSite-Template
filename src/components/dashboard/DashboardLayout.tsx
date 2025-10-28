@@ -3,6 +3,14 @@ import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { Badge } from "../ui/badge";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "../ui/breadcrumb";
 import { ThemeToggle } from "../ThemeToggle";
 import { Logo } from "../Logo";
 import { Sheet, SheetContent, SheetTrigger, SheetTitle, SheetDescription } from "../ui/sheet";
@@ -22,7 +30,6 @@ import {
 } from "../ui/accordion";
 import {
   Bell,
-  Search,
   Settings,
   User,
   LogOut,
@@ -37,7 +44,8 @@ import {
   ChevronRight,
   PanelLeft,
   SlidersHorizontal,
-  Plus
+  Plus,
+  Search
 } from "lucide-react";
 
 type DashboardView = 'dashboard' | 'projects' | 'analytics' | 'team' | 'billing' | 'settings' | 'support';
@@ -47,6 +55,7 @@ interface DashboardLayoutProps {
   onLogout?: () => void;
   activeView?: DashboardView;
   onNavigate?: (view: DashboardView) => void;
+  onSearch?: (query: string) => void;
 }
 
 const navigationItems: Array<{
@@ -64,6 +73,11 @@ const navigationItems: Array<{
   { icon: Settings, label: "Settings", view: "settings" },
   { icon: HelpCircle, label: "Support", view: "support" }
 ];
+
+const getViewLabel = (view: DashboardView): string => {
+  const item = navigationItems.find(item => item.view === view);
+  return item?.label || "Dashboard";
+};
 
 interface SidebarContentProps {
   isCollapsed?: boolean;
@@ -128,7 +142,7 @@ function SidebarContent({ isCollapsed = false, activeView = 'dashboard', onNavig
                       <span className="flex items-center shrink-0">
                         <item.icon className="h-4 w-4" />
                       </span>
-                      <span className="flex-1 text-left">{item.label}</span>
+                      <span className="flex-1 text-left text-sm font-medium">{item.label}</span>
                       {item.badge && (
                         <Badge className="h-5 bg-gradient-to-r from-indigo-500 to-purple-600 px-1.5 rounded-[0.625rem]">
                           {item.badge}
@@ -169,7 +183,7 @@ function SidebarContent({ isCollapsed = false, activeView = 'dashboard', onNavig
               <button
                 key={item.label}
                 onClick={() => onNavigate?.(item.view)}
-                className={`group flex w-full items-center ${isCollapsed ? 'justify-center' : 'gap-3'} rounded-lg px-3 py-2 transition-all ${
+                className={`group flex w-full items-center ${isCollapsed ? 'justify-center' : 'gap-3'} rounded-lg px-3 py-2 text-sm font-medium transition-all ${
                   activeView === item.view
                     ? 'bg-muted text-primary'
                     : 'text-muted-foreground hover:text-primary'
@@ -237,8 +251,16 @@ function SidebarContent({ isCollapsed = false, activeView = 'dashboard', onNavig
   );
 }
 
-export function DashboardLayout({ children, onLogout, activeView = 'dashboard', onNavigate }: DashboardLayoutProps) {
+export function DashboardLayout({ children, onLogout, activeView = 'dashboard', onNavigate, onSearch }: DashboardLayoutProps) {
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (searchQuery.trim() && onSearch) {
+      onSearch(searchQuery.trim());
+    }
+  };
 
   return (
     <div className="flex min-h-screen bg-muted/20 relative">
@@ -299,23 +321,84 @@ export function DashboardLayout({ children, onLogout, activeView = 'dashboard', 
             <Menu className="h-5 w-5" />
           </Button>
 
-          <div className="relative hidden sm:block">
-            <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
-            <Input
-              placeholder="Search..."
-              className="w-64 pl-8"
-            />
-          </div>
+          {activeView === "dashboard" ? (
+            <form onSubmit={handleSearch} className="relative flex-1 max-w-md ml-2 lg:ml-4">
+              <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
+              <Input
+                placeholder="Search projects..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="pl-8 bg-background"
+              />
+            </form>
+          ) : (
+            <Breadcrumb className="hidden sm:block">
+              <BreadcrumbList>
+                <BreadcrumbItem>
+                  <BreadcrumbPage>{getViewLabel(activeView)}</BreadcrumbPage>
+                </BreadcrumbItem>
+              </BreadcrumbList>
+            </Breadcrumb>
+          )}
 
           <div className="ml-auto flex items-center gap-1 sm:gap-2 md:gap-4">
             <ThemeToggle />
 
-            <Button variant="ghost" size="icon" className="relative shrink-0">
-              <Bell className="h-5 w-5" />
-              <span className="absolute -right-1 -top-1 flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-xs text-white">
-                3
-              </span>
-            </Button>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="ghost" size="icon" className="relative shrink-0">
+                  <Bell className="h-5 w-5" />
+                  <span className="absolute -right-1 -top-1 flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-xs text-white">
+                    3
+                  </span>
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-80">
+                <DropdownMenuLabel>Notifications</DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                <div className="space-y-1">
+                  <div className="px-2 py-3 hover:bg-muted/50 rounded-md cursor-pointer">
+                    <div className="flex items-start justify-between gap-2">
+                      <div className="flex-1">
+                        <p className="text-sm">Global Launch Campaign 2024</p>
+                        <p className="text-xs text-muted-foreground mt-1">Translation completed</p>
+                      </div>
+                      <Badge variant="outline" className="bg-green-500/10 text-green-600 border-green-500/20 shrink-0">
+                        Complete
+                      </Badge>
+                    </div>
+                  </div>
+                  <div className="px-2 py-3 hover:bg-muted/50 rounded-md cursor-pointer">
+                    <div className="flex items-start justify-between gap-2">
+                      <div className="flex-1">
+                        <p className="text-sm">Netflix Originals Q4 Batch</p>
+                        <p className="text-xs text-muted-foreground mt-1">QA review in progress</p>
+                      </div>
+                      <Badge variant="outline" className="bg-blue-500/10 text-blue-600 border-blue-500/20 shrink-0">
+                        In Progress
+                      </Badge>
+                    </div>
+                  </div>
+                  <div className="px-2 py-3 hover:bg-muted/50 rounded-md cursor-pointer">
+                    <div className="flex items-start justify-between gap-2">
+                      <div className="flex-1">
+                        <p className="text-sm">Amazon Prime Documentary Series</p>
+                        <p className="text-xs text-muted-foreground mt-1">Ready for review</p>
+                      </div>
+                      <Badge variant="outline" className="bg-amber-500/10 text-amber-600 border-amber-500/20 shrink-0">
+                        Review
+                      </Badge>
+                    </div>
+                  </div>
+                </div>
+                <DropdownMenuSeparator />
+                <div className="px-2 py-2">
+                  <Button variant="ghost" className="w-full text-sm">
+                    View all notifications
+                  </Button>
+                </div>
+              </DropdownMenuContent>
+            </DropdownMenu>
 
             {/* DropdownMenu: User menu */}
             <DropdownMenu>

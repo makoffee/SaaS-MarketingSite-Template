@@ -15,7 +15,7 @@ export function Footer() {
   const currentYear = new Date().getFullYear();
   
   return (
-    <footer className="bg-slate-900 text-white">
+    <footer id="support" className="bg-slate-900 text-white">
       {/* Newsletter Section */}
       <div className="border-b border-slate-800">
         <div className="container py-8 md:py-10">
