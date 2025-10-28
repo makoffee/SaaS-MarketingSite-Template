@@ -1,0 +1,130 @@
+{
+  "buttons": {
+    "upload": {
+      "label": "Upload",
+      "icon": "upload",
+      "ariaLabel": "Upload a new file"
+    },
+    "download": {
+      "label": "Download",
+      "icon": "download",
+      "ariaLabel": "Download file"
+    },
+    "export": {
+      "label": "Export",
+      "icon": "download",
+      "ariaLabel": "Export data"
+    },
+    "refresh": {
+      "label": "Refresh",
+      "icon": "refresh",
+      "ariaLabel": "Refresh data"
+    },
+    "filter": {
+      "label": "Filter",
+      "icon": "filter",
+      "ariaLabel": "Filter results"
+    },
+    "search": {
+      "label": "Search",
+      "icon": "search",
+      "ariaLabel": "Search"
+    },
+    "newProject": {
+      "label": "New Project",
+      "icon": "plus",
+      "ariaLabel": "Create a new project"
+    },
+    "cancel": {
+      "label": "Cancel",
+      "ariaLabel": "Cancel action"
+    },
+    "save": {
+      "label": "Save",
+      "ariaLabel": "Save changes"
+    },
+    "delete": {
+      "label": "Delete",
+      "ariaLabel": "Delete item"
+    },
+    "edit": {
+      "label": "Edit",
+      "ariaLabel": "Edit item"
+    },
+    "close": {
+      "label": "Close",
+      "icon": "close",
+      "ariaLabel": "Close"
+    }
+  },
+  "status": {
+    "completed": {
+      "label": "Completed",
+      "icon": "success",
+      "color": "emerald"
+    },
+    "processing": {
+      "label": "Processing",
+      "icon": "processing",
+      "color": "blue"
+    },
+    "failed": {
+      "label": "Failed",
+      "icon": "failed",
+      "color": "red"
+    },
+    "pending": {
+      "label": "Pending",
+      "icon": "clock",
+      "color": "yellow"
+    }
+  },
+  "theme": {
+    "toggle": "Toggle theme",
+    "light": "Light mode",
+    "dark": "Dark mode"
+  },
+  "time": {
+    "minutes": "{{count}} min",
+    "hours": "{{count}}h {{minutes}}min",
+    "seconds": "{{count}}s"
+  },
+  "actions": {
+    "selectAll": "Select all",
+    "deselectAll": "Deselect all",
+    "retry": "Retry",
+    "pause": "Pause",
+    "resume": "Resume",
+    "viewDetails": "View details"
+  },
+  "notifications": {
+    "title": "Notifications",
+    "empty": "No notifications",
+    "markAllRead": "Mark all as read"
+  },
+  "fileFormats": {
+    "srt": "SRT Subtitle",
+    "vtt": "WebVTT",
+    "transcript": "Transcript"
+  },
+  "languages": {
+    "EN": "English",
+    "DE": "German",
+    "FR": "French",
+    "IT": "Italian",
+    "ES": "Spanish",
+    "PT": "Portuguese",
+    "NL": "Dutch",
+    "PL": "Polish",
+    "RU": "Russian",
+    "JA": "Japanese",
+    "KO": "Korean",
+    "ZH": "Chinese"
+  },
+  "errors": {
+    "generic": "Something went wrong. Please try again.",
+    "network": "Network error. Please check your connection.",
+    "unauthorized": "You are not authorized to perform this action.",
+    "notFound": "Resource not found."
+  }
+}

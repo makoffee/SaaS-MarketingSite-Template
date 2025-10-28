@@ -7,6 +7,7 @@ import { useState } from "react";
 import { ArrowRight, Menu, X } from "lucide-react";
 import { Button } from "../ui/button";
 import { ThemeToggle } from "../ThemeToggle";
+import { Logo } from "../Logo";
 import { content } from "../../config/content";
 
 interface NavigationLink {
@@ -26,11 +27,15 @@ interface NavigationContent {
 interface NavigationProps {
   content?: NavigationContent;
   className?: string;
+  onGetStarted?: () => void;
+  onLogoClick?: () => void;
 }
 
 export function Navigation({ 
   content: navigationContent = content.navigation,
-  className = ""
+  className = "",
+  onGetStarted,
+  onLogoClick
 }: NavigationProps) {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -38,10 +43,12 @@ export function Navigation({
     <nav className={`fixed top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60${className ? ` ${className}` : ''}`}>
       <div className="container flex h-16 items-center">
         {/* Logo */}
-        <div className="flex items-center space-x-2">
-          <div className="h-8 w-8 rounded-lg bg-gradient-to-br from-indigo-500 to-purple-600" />
-          <span className={`${content.company.nameClass} text-xl font-semibold`}>{content.company.name}</span>
-        </div>
+        <button 
+          onClick={onLogoClick}
+          className="flex items-center hover:opacity-80 transition-opacity"
+        >
+          <Logo className="h-7 w-auto" />
+        </button>
         
         {/* Desktop Navigation */}
         <div className="hidden md:flex flex-1 items-center justify-center space-x-8">
@@ -59,10 +66,10 @@ export function Navigation({
         {/* Desktop Actions */}
         <div className="hidden md:flex items-center space-x-4">
           <ThemeToggle />
-          <Button variant="ghost" size="sm">
+          <Button variant="ghost" size="sm" onClick={onGetStarted}>
             {navigationContent.auth.login}
           </Button>
-          <Button size="sm" className="bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white">
+          <Button size="sm" className="bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white" onClick={onGetStarted}>
             Get <span className="font-black">eysign</span>
             <ArrowRight className="ml-2 h-4 w-4" />
           </Button>
@@ -102,10 +109,10 @@ export function Navigation({
             
             {/* Mobile Actions */}
             <div className="pt-4 border-t border-border/20 space-y-3">
-              <Button variant="ghost" size="sm" className="w-full justify-start">
+              <Button variant="ghost" size="sm" className="w-full justify-start" onClick={() => { setIsOpen(false); onGetStarted?.(); }}>
                 {navigationContent.auth.login}
               </Button>
-              <Button size="sm" className="w-full bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white">
+              <Button size="sm" className="w-full bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white" onClick={() => { setIsOpen(false); onGetStarted?.(); }}>
                 Get <span className="font-black">eysign</span>
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Button>

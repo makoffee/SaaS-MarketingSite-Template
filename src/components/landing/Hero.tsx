@@ -7,7 +7,8 @@ import { Button } from "../ui/button";
 import { Play, ArrowRight, Upload, Zap, Globe, Shield, Bot } from "lucide-react";
 import { Badge } from "../ui/badge";
 import { content } from "../../config/content";
-import dashboardScreenshot from "figma:asset/3e4dc50aa035862f857a75a1da86ec0376e3eedf.png";
+import dashboardScreenshotLight from "figma:asset/0079ce6d6aa3f4d01be1bef8a07912e85a95c9e3.png";
+import dashboardScreenshotDark from "figma:asset/b06ecfadacb0da547dac2f8a29b475e51c45f1a0.png";
 import { MultilingualTypewriterH1 } from "./MultilingualTypewriterH1";
 
 interface HeroContent {
@@ -104,23 +105,27 @@ export function Hero({
           {/* Dashboard Screenshot */}
           <div className="pt-16 pb-8 w-full max-w-6xl">
             <div className="relative group">
-              {/* Glass container with subtle glow */}
-              <div className="absolute inset-0 bg-gradient-to-r from-indigo-500/20 to-purple-600/20 dark:from-indigo-400/20 dark:to-purple-500/20 rounded-2xl blur-xl transform scale-105 opacity-75 group-hover:opacity-100 transition-opacity duration-300" />
+              {/* Subtle background glow */}
+              <div className="absolute -inset-4 bg-gradient-to-r from-indigo-500/20 to-purple-600/20 dark:from-indigo-500/10 dark:to-purple-500/10 rounded-3xl blur-2xl opacity-50 group-hover:opacity-75 transition-opacity duration-500" />
               
-              {/* Main screenshot container with larger border */}
-              <div className="relative bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm border-2 border-white/30 dark:border-slate-700/60 rounded-2xl p-2 shadow-2xl">
-                {/* Inner glass effect */}
-                <div className="bg-gradient-to-br from-white/40 to-white/10 dark:from-slate-800/40 dark:to-slate-900/10 rounded-xl overflow-hidden backdrop-blur-sm">
-                  <img 
-                    src={dashboardScreenshot} 
-                    alt="eysign Dashboard - Contextual Translation Platform"
-                    className="w-full h-auto rounded-xl shadow-lg"
-                    loading="lazy"
-                  />
-                </div>
-                
-                {/* Subtle highlight line */}
-                <div className="absolute top-0 left-1/4 right-1/4 h-px bg-gradient-to-r from-transparent via-white/50 dark:via-slate-400/50 to-transparent" />
+              {/* Screenshot with bordered frame - Light Mode */}
+              <div className="relative rounded-xl bg-slate-50 dark:bg-slate-900 p-2 ring-1 ring-slate-900/10 dark:ring-slate-100/10 shadow-2xl dark:hidden">
+                <img 
+                  src={dashboardScreenshotLight} 
+                  alt="eysign Dashboard - Contextual Translation Platform"
+                  className="w-full h-auto rounded-lg ring-1 ring-slate-900/10"
+                  loading="lazy"
+                />
+              </div>
+              
+              {/* Screenshot with bordered frame - Dark Mode */}
+              <div className="relative rounded-xl bg-slate-900 p-2 ring-1 ring-slate-100/10 shadow-2xl hidden dark:block">
+                <img 
+                  src={dashboardScreenshotDark} 
+                  alt="eysign Dashboard - Contextual Translation Platform"
+                  className="w-full h-auto rounded-lg ring-1 ring-slate-100/10"
+                  loading="lazy"
+                />
               </div>
             </div>
           </div>

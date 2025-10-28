@@ -1,0 +1,39 @@
+{
+  "required": "This field is required",
+  "email": {
+    "invalid": "Please enter a valid email address",
+    "required": "Email is required",
+    "inUse": "This email is already in use"
+  },
+  "password": {
+    "required": "Password is required",
+    "minLength": "Password must be at least {{min}} characters",
+    "maxLength": "Password must be less than {{max}} characters",
+    "weak": "Password is too weak",
+    "mismatch": "Passwords do not match",
+    "uppercase": "Password must contain at least one uppercase letter",
+    "lowercase": "Password must contain at least one lowercase letter",
+    "number": "Password must contain at least one number",
+    "special": "Password must contain at least one special character"
+  },
+  "file": {
+    "required": "Please select a file",
+    "tooLarge": "File size exceeds {{max}}",
+    "invalidType": "Invalid file type. Supported formats: {{formats}}",
+    "uploadFailed": "File upload failed. Please try again."
+  },
+  "projectName": {
+    "required": "Project name is required",
+    "minLength": "Project name must be at least {{min}} characters",
+    "maxLength": "Project name must be less than {{max}} characters",
+    "invalid": "Project name contains invalid characters"
+  },
+  "languages": {
+    "required": "Please select at least one target language",
+    "maxSelected": "Maximum {{max}} languages can be selected"
+  },
+  "generic": {
+    "invalidInput": "Invalid input",
+    "submissionFailed": "Submission failed. Please try again."
+  }
+}

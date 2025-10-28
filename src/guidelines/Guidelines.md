@@ -14,6 +14,29 @@ This is a professional SaaS landing page template for video localization and acc
 
 ## Design System
 
+### Brand Assets
+
+**Logo System:**
+- Logo files stored in `/assets/` directory
+- **Full logo:**
+  - Light mode: `logo-light.svg` (black text)
+  - Dark mode: `logo-dark.svg` (white text)
+  - Dimensions: 115x32px (viewBox), displayed at h-7 (28px height)
+- **Icon-only logo:**
+  - Light mode: `logo-icon-light.svg`
+  - Dark mode: `logo-icon-dark.svg`
+  - Dimensions: 32x32px (viewBox)
+- Centralized `<Logo>` component (`/components/Logo.tsx`) automatically switches based on theme
+- Usage: `<Logo className="h-7 w-auto" />` for full logo
+- Usage: `<Logo iconOnly className="h-8 w-8" />` for icon-only version
+
+**To update logos:**
+1. Replace SVG files in `/assets/` directory
+2. Maintain same viewBox dimensions for consistency
+3. Light versions should have dark/black text
+4. Dark versions should have white text
+5. Icon-only versions contain just the gradient square with symbol
+
 ### Brand Colors
 - **Primary Purple Gradient:** `from-indigo-500 to-purple-600`
 - **Secondary Teal Gradient:** `from-cyan-500 to-teal-500` 
@@ -24,7 +47,7 @@ This is a professional SaaS landing page template for video localization and acc
 - Use the typography system defined in `globals.css`
 - **Root Size:** 16px
 - **Type Scale:** Custom (xs: 12px, sm: 14px, base: 16px, lg: 18px, xl: 20px, 2xl: 24px, 3xl: 30px, 4xl: 36px)
-- **Line Heights:** Golden ratio system (1.2, 1.3, 1.4, 1.5, 1.618)
+- **Line Heights:** Golden ratio system (1.4, 1.3, 1.4, 1.5, 1.618)
 - **Font Weights:** normal (400), medium (500), black (900)
 - **Fonts:** Inter (UI/body), Satoshi (headings)
 - **Font Loading:** Critical fonts preloaded with `font-display: block` to prevent FOUT
@@ -73,10 +96,13 @@ This is a professional SaaS landing page template for video localization and acc
 Mobile: 100% width, 1rem padding
 Small: 640px max, 1.5rem padding  
 Medium: 768px max, 2rem padding
+Intermediate: 900px max (prevents tight gutters)
 Large: 1024px max
 XL: 1280px max
 2XL: 1536px max
 ```
+
+**Note:** The 900px breakpoint was added to prevent tight container gutters at viewport widths around 987px, ensuring the logo and content have adequate breathing room.
 
 ### Mobile-First Approach
 - Navigation collapses to hamburger menu below 768px
@@ -100,16 +126,37 @@ XL: 1280px max
 
 ## Content Management
 
-### Prismic CMS Integration
-- Content structure defined in `/docs/prismic-content-types.md`
-- TypeScript interfaces in `/types/content.ts`
-- All text content should be CMS-driven
-- Support for rich text formatting
+### Two-Tier Content Strategy
 
-### Static to Dynamic Migration
-- Current static content in `/config/content.ts`
-- Components designed to accept content props
-- Easy transition from static to CMS data
+| Content Type | System | Purpose |
+|--------------|--------|---------|
+| Landing Page | `content.ts` → Prismic CMS | Marketing content |
+| Application UI | i18n JSON → react-i18next | Interface text |
+
+### Internationalization (i18n)
+
+Application UI uses react-i18next for translations. See `/docs/i18n.md` for setup.
+
+Files:
+- `/config/icon-registry.ts` - Icon mapping
+- `/i18n/config.ts` - i18n setup
+- `/locales/en/*.json` - Translation files
+- `/utils/i18n-helpers.ts` - Helper hooks
+
+Usage:
+```tsx
+import { useButtonConfig } from '@/utils/i18n-helpers';
+
+const config = useButtonConfig('buttons.upload');
+<Button>
+  <config.Icon className="h-4 w-4 mr-2" />
+  {config.label}
+</Button>
+```
+
+### Prismic CMS
+
+Landing page content managed in Prismic. See `/docs/prismic-content-types.md`.
 
 ## Performance Standards
 

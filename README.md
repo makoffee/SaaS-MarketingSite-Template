@@ -1,117 +1,98 @@
-# SaaS Landing Page
+# SaaS Localization Platform
 
-A production-ready landing page template for SaaS applications. Built with React, TypeScript, and Tailwind CSS. Designed for easy migration to Next.js 14+ with Prismic CMS integration.
+Professional SaaS application for studios and production houses to localize and generate accessibility subtitles using advanced contextual translation technology.
 
 ## Tech Stack
 
-- React 18+ with TypeScript
-- Tailwind CSS v4
-- shadcn/ui components
-- Motion/React animations
-- Prismic CMS ready
+- **Frontend:** React 18+ with TypeScript
+- **Styling:** Tailwind CSS v4 + shadcn/ui
+- **Animation:** Motion/React (Framer Motion)
+- **i18n:** react-i18next
+- **Auth:** AWS Cognito (ready)
+- **Payments:** Stripe (ready)
+- **Icons:** lucide-react
+- **CMS:** Prismic (ready)
 
-## Getting Started
+## Quick Start
 
 ```bash
-# Install dependencies
 npm install
-
-# Start development server
 npm run dev
-
-# Open http://localhost:3000
 ```
 
 ## Project Structure
 
 ```
-├── App.tsx                 # Main entry point
 ├── components/
+│   ├── auth/              # Authentication screens
+│   ├── dashboard/         # Dashboard & projects view
 │   ├── landing/           # Landing page sections
-│   ├── ui/                # shadcn/ui components
-│   └── ThemeProvider.tsx  # Dark mode system
+│   └── ui/                # shadcn/ui components
 ├── config/
-│   └── content.ts         # Static content
+│   ├── content.ts         # Landing page content
+│   └── icon-registry.ts   # Icon mappings
+├── i18n/                  # i18n configuration
+├── locales/               # Translation files
 ├── styles/
-│   └── globals.css        # Tailwind + design system
-├── hooks/                 # Custom React hooks
-├── types/                 # TypeScript interfaces
-└── docs/                  # Documentation
+│   └── globals.css        # Design system tokens
+├── docs/                  # Technical documentation
+└── guidelines/            # Design guidelines
 ```
 
 ## Key Features
 
-- Responsive design with mobile navigation
-- Dark/light mode theme toggle
-- Scroll animations
-- Three-tier pricing component
-- Multilingual typewriter animation
-- Ready for CMS integration
-
-## Fonts
-
-Local fonts for GDPR compliance. Place font files in `/fonts/` directory:
-
-```bash
-chmod +x scripts/setup-fonts.sh
-./scripts/setup-fonts.sh
-```
-
-See `/fonts/README.md` for details.
-
-## Next.js Migration
-
-This template is built for Next.js 14+ App Router. See `/docs/nextjs-migration-guide.md` for complete migration steps.
-
-Quick overview:
-1. Initialize Next.js 14+ project
-2. Copy components and configuration
-3. Update imports to use `@/` alias
-4. Configure Prismic CMS
-
-## Prismic CMS Setup
-
-Content types are defined and ready for Prismic integration.
-
-```bash
-npm install @prismicio/client @prismicio/next
-```
-
-Environment variables:
-```env
-PRISMIC_REPOSITORY_NAME=your_repository
-PRISMIC_ACCESS_TOKEN=your_token
-```
-
-See `/docs/prismic-content-types.md` for content type schemas.
-
-## Deployment
-
-Recommended platform: Vercel
-
-```bash
-# Deploy to Vercel
-npx vercel --prod
-```
-
-See `/docs/deployment-guide.md` for detailed instructions.
+- Three-tier pricing system
+- Dark/light mode with theme toggle
+- Comprehensive i18n architecture
+- Dashboard with projects management
+- Mobile-responsive design
+- GDPR-compliant local font hosting
+- Clean HTML markup for Figma sync
 
 ## Documentation
 
-- `/docs/nextjs-migration-guide.md` - Next.js migration steps
-- `/docs/prismic-content-types.md` - CMS content schemas
-- `/docs/component-documentation.md` - Component API reference
-- `/docs/deployment-guide.md` - Deployment instructions
-- `/guidelines/Guidelines.md` - Design system and standards
+- `/guidelines/Guidelines.md` - Complete design system
+- `/docs/i18n.md` - Internationalization setup
+- `/docs/nextjs-migration-guide.md` - Next.js migration
+- `/docs/prismic-content-types.md` - CMS integration
+- `/docs/deployment-guide.md` - Deployment guide
+
+## Environment Variables
+
+```env
+# Prismic CMS
+PRISMIC_REPOSITORY_NAME=your_project
+PRISMIC_ACCESS_TOKEN=xxx
+
+# AWS Cognito
+NEXT_PUBLIC_AWS_REGION=xxx
+NEXT_PUBLIC_USER_POOL_ID=xxx
+NEXT_PUBLIC_CLIENT_ID=xxx
+
+# Stripe
+NEXT_PUBLIC_STRIPE_KEY=xxx
+
+# Site
+NEXT_PUBLIC_SITE_URL=https://your-domain.com
+```
 
 ## Design System
 
-Brand colors and styling are defined in `styles/globals.css` and `guidelines/Guidelines.md`.
+See `/guidelines/Guidelines.md` for complete design system documentation.
 
-Key conventions:
-- Purple/teal gradient system
-- Typography defaults in globals.css (don't override with Tailwind classes)
-- Component styling must explicitly override defaults
+**Brand Colors:**
+- Primary: Purple gradient `from-indigo-500 to-purple-600`
+- Secondary: Teal gradient `from-cyan-500 to-teal-500`
+
+**Typography:**
+- UI/Body: Inter (400, 500, 900)
+- Headings: Satoshi (medium)
+- Local GDPR-compliant font hosting
+
+**Important:**
+- Never override font sizes/weights with Tailwind unless requested
+- Typography system defined in `globals.css`
+- Border radius: `0.625rem` throughout
 
 ## License
 

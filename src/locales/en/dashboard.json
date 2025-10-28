@@ -1,0 +1,43 @@
+{
+  "overview": {
+    "title": "Dashboard",
+    "welcome": "Welcome back",
+    "stats": {
+      "totalProjects": {
+        "label": "Total Projects",
+        "description": "Active projects this month"
+      },
+      "minutesProcessed": {
+        "label": "Minutes Processed",
+        "description": "Total processing time"
+      },
+      "languagesPairs": {
+        "label": "Language Pairs",
+        "description": "Unique language combinations"
+      },
+      "accuracy": {
+        "label": "Avg. Accuracy",
+        "description": "Translation quality score"
+      }
+    },
+    "recentActivity": {
+      "title": "Recent Activity",
+      "empty": "No recent activity",
+      "viewAll": "View all activity"
+    },
+    "usageChart": {
+      "title": "Usage Overview",
+      "minutes": "Minutes",
+      "projects": "Projects",
+      "thisMonth": "This month",
+      "lastMonth": "Last month"
+    }
+  },
+  "quickActions": {
+    "title": "Quick Actions",
+    "uploadProject": "Upload New Project",
+    "viewProjects": "View All Projects",
+    "exportData": "Export Data",
+    "inviteTeam": "Invite Team Member"
+  }
+}

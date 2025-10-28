@@ -1,0 +1,70 @@
+{
+  "title": "Projects",
+  "description": "Manage your localization projects",
+  "table": {
+    "headers": {
+      "select": "Select",
+      "projectName": "Project name",
+      "language": "Language",
+      "status": "Status",
+      "accuracy": "Accuracy",
+      "duration": "Duration",
+      "created": "Created",
+      "actions": "Actions"
+    },
+    "empty": {
+      "title": "No projects yet",
+      "description": "Upload your first video to get started",
+      "action": "Upload Project"
+    },
+    "loading": "Loading projects...",
+    "error": "Failed to load projects"
+  },
+  "actions": {
+    "newProject": "New Project",
+    "export": "Export",
+    "bulkActions": "Bulk Actions",
+    "download": {
+      "srt": "Download SRT",
+      "vtt": "Download VTT",
+      "transcript": "Download Transcript"
+    },
+    "delete": "Delete",
+    "duplicate": "Duplicate",
+    "retry": "Retry",
+    "pause": "Pause"
+  },
+  "filters": {
+    "all": "All Projects",
+    "completed": "Completed",
+    "processing": "Processing",
+    "failed": "Failed",
+    "language": "Filter by language",
+    "dateRange": "Date range"
+  },
+  "pagination": {
+    "previous": "Previous",
+    "next": "Next",
+    "page": "Page {{current}} of {{total}}",
+    "showing": "Showing {{from}} to {{to}} of {{total}} projects"
+  },
+  "upload": {
+    "title": "Upload New Project",
+    "dragDrop": "Drag and drop video files here",
+    "or": "or",
+    "browse": "Browse files",
+    "supportedFormats": "Supported formats: MP4, MOV, AVI (max 5GB)",
+    "selectLanguages": "Select target languages",
+    "projectName": "Project name",
+    "startUpload": "Start Upload",
+    "uploading": "Uploading..."
+  },
+  "status": {
+    "tooltips": {
+      "completed": "Processing completed successfully",
+      "processing": "Currently processing",
+      "failed": "Processing failed - click to retry",
+      "pending": "Waiting to start"
+    }
+  }
+}

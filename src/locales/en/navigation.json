@@ -1,0 +1,54 @@
+{
+  "main": {
+    "dashboard": {
+      "label": "Dashboard",
+      "icon": "dashboard",
+      "description": "Overview and statistics"
+    },
+    "projects": {
+      "label": "Projects",
+      "icon": "projects",
+      "description": "Manage your projects",
+      "count": "{{count}} projects"
+    },
+    "analytics": {
+      "label": "Analytics",
+      "icon": "analytics",
+      "description": "Usage analytics and insights"
+    },
+    "team": {
+      "label": "Team",
+      "icon": "team",
+      "description": "Team members and permissions",
+      "badge": "Pro"
+    },
+    "billing": {
+      "label": "Billing",
+      "icon": "billing",
+      "description": "Subscription and invoices"
+    },
+    "settings": {
+      "label": "Settings",
+      "icon": "settings",
+      "description": "Account and preferences"
+    },
+    "support": {
+      "label": "Support",
+      "icon": "support",
+      "description": "Help and documentation"
+    }
+  },
+  "user": {
+    "menu": {
+      "profile": "Profile",
+      "account": "Account Settings",
+      "logout": "Log Out"
+    }
+  },
+  "mobile": {
+    "menu": "Menu",
+    "close": "Close menu",
+    "openSidebar": "Open sidebar",
+    "closeSidebar": "Close sidebar"
+  }
+}

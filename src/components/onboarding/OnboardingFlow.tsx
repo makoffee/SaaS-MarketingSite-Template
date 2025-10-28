@@ -8,6 +8,7 @@ import { Progress } from "../ui/progress";
 import { Separator } from "../ui/separator";
 import { Checkbox } from "../ui/checkbox";
 import { RadioGroup, RadioGroupItem } from "../ui/radio-group";
+import { Logo } from "../Logo";
 import {
   Upload,
   CheckCircle,
@@ -556,9 +557,8 @@ export function OnboardingFlow() {
       {/* Header */}
       <div className="sticky top-0 z-50 bg-white/95 backdrop-blur border-b">
         <div className="container flex items-center justify-between py-4">
-          <div className="flex items-center space-x-2">
-            <div className="h-8 w-8 rounded-lg bg-gradient-to-br from-indigo-500 to-purple-600" />
-            <span className="font-bold text-xl">eysign</span>
+          <div className="flex items-center">
+            <Logo className="h-8 w-auto" />
           </div>
           
           <div className="flex items-center space-x-8">

@@ -1,6 +1,7 @@
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { Separator } from "../ui/separator";
+import { Logo } from "../Logo";
 import { content } from "../../config/content";
 import { 
   Twitter, 
@@ -44,9 +45,8 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-10">
           {/* Brand */}
           <div className="lg:col-span-2">
-            <div className="flex items-center space-x-2 mb-6">
-              <div className="h-8 w-8 rounded-lg bg-gradient-to-br from-indigo-500 to-purple-600" />
-              <span className={`${content.company.nameClass} text-xl`}>{content.company.name}</span>
+            <div className="flex items-center mb-6">
+              <Logo className="h-7 w-auto" />
             </div>
             <p className="text-slate-400 mb-6 max-w-sm">
               {content.company.description}

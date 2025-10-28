@@ -19,8 +19,6 @@ export function CallToAction() {
     const file = event.target.files?.[0];
     if (file) {
       setSelectedFile(file);
-      // Here you would typically handle the file upload
-      console.log('Selected file:', file.name, file.size, file.type);
     }
   };
 
