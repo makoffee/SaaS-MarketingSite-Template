@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { BrowserRouter, Routes, Route, Navigate, useNavigate, useLocation } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate, useNavigate, useLocation, useSearchParams } from 'react-router-dom';
 import { Navigation } from "./components/landing/Navigation";
 import { Hero } from "./components/landing/Hero";
 import { Features } from "./components/landing/Features";
@@ -9,6 +9,7 @@ import { CallToAction } from "./components/landing/CallToAction";
 import { Footer } from "./components/landing/Footer";
 import { ThemeProvider } from "./components/ThemeProvider";
 import { AuthScreen } from "./components/auth/AuthScreen";
+import { SelectPlan } from "./components/onboarding/SelectPlan";
 import { DashboardLayout } from "./components/dashboard/DashboardLayout";
 import { DashboardOverview } from "./components/dashboard/DashboardOverview";
 import { ProjectsView } from "./components/dashboard/ProjectsView";
@@ -53,7 +54,12 @@ function LandingPage() {
   }, [location]);
 
   const handleGetStarted = () => {
-    navigate('/auth');
+    navigate('/auth?mode=signup');
+  };
+
+  const handlePlanSelect = (planName: string) => {
+    // Flow 2: User selects plan from pricing page > creates account > app dashboard
+    navigate(`/auth?mode=signup&plan=${encodeURIComponent(planName)}`);
   };
 
   const handleNavigateHome = () => {
@@ -65,11 +71,11 @@ function LandingPage() {
       <Navigation onGetStarted={handleGetStarted} onLogoClick={handleNavigateHome} />
       
       <main role="main">
-        <Hero />
+        <Hero onGetStarted={handleGetStarted} />
         <Features />
         <Solutions />
-        <Pricing />
-        <CallToAction />
+        <Pricing onPlanSelect={handlePlanSelect} />
+        <CallToAction onGetStarted={handleGetStarted} />
       </main>
       
       <Footer />
@@ -78,14 +84,46 @@ function LandingPage() {
 }
 
 // Auth page wrapper component
-function AuthPage({ onLogin }: { onLogin: () => void }) {
+function AuthPage({ onLogin }: { onLogin: (skipPlanSelection?: boolean) => void }) {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  
+  const mode = searchParams.get('mode') as 'login' | 'signup' | null;
+  const selectedPlan = searchParams.get('plan');
 
   const handleBackToLanding = () => {
     navigate('/');
   };
 
-  return <AuthScreen onLogin={onLogin} onBackToLanding={handleBackToLanding} />;
+  const handleLogin = () => {
+    // If user selected a plan from pricing page (Flow 2), skip plan selection
+    // Also skip if user is logging in (not signing up)
+    if (selectedPlan || mode === 'login') {
+      onLogin(true); // Skip plan selection, go straight to dashboard
+    } else {
+      onLogin(false); // Go to plan selection (for signup without plan)
+    }
+  };
+
+  return (
+    <AuthScreen 
+      onLogin={handleLogin} 
+      onBackToLanding={handleBackToLanding}
+      selectedPlan={selectedPlan || undefined}
+      initialMode={mode || 'login'}
+    />
+  );
+}
+
+// Select Plan page wrapper component
+function SelectPlanPage({ onSelectPlan }: { onSelectPlan: () => void }) {
+  const navigate = useNavigate();
+
+  const handleBack = () => {
+    navigate('/');
+  };
+
+  return <SelectPlan onSelectPlan={onSelectPlan} onBack={handleBack} />;
 }
 
 // Dashboard wrapper component
@@ -156,19 +194,35 @@ function PlaceholderView({ title }: { title: string }) {
 // Main App component with routing
 function AppContent() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [needsPlanSelection, setNeedsPlanSelection] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
     preloadFonts();
   }, []);
 
-  const handleLogin = () => {
+  const handleLogin = (skipPlanSelection: boolean = false) => {
     setIsAuthenticated(true);
-    navigate('/app');
+    
+    if (skipPlanSelection) {
+      // Flow 2: User selected plan from pricing page, go straight to dashboard
+      navigate('/app');
+    } else {
+      // Flow 1: User signed up without selecting a plan, show plan selection
+      setNeedsPlanSelection(true);
+      navigate('/select-plan');
+    }
+  };
+
+  const handleSelectPlan = () => {
+    setNeedsPlanSelection(false);
+    // Use replace to avoid back button issues
+    navigate('/app', { replace: true });
   };
 
   const handleLogout = () => {
     setIsAuthenticated(false);
+    setNeedsPlanSelection(false);
     navigate('/');
   };
 
@@ -178,6 +232,16 @@ function AppContent() {
         {/* Public routes */}
         <Route path="/" element={<LandingPage />} />
         <Route path="/auth" element={<AuthPage onLogin={handleLogin} />} />
+        
+        {/* Semi-protected route - accessible only after auth but before plan selection */}
+        <Route 
+          path="/select-plan" 
+          element={
+            isAuthenticated 
+              ? (needsPlanSelection ? <SelectPlanPage onSelectPlan={handleSelectPlan} /> : <Navigate to="/app" replace />) 
+              : <Navigate to="/" replace />
+          } 
+        />
         
         {/* Protected routes */}
         <Route 

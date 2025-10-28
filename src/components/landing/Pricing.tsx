@@ -11,7 +11,11 @@ const plans = content.pricing.plans.map((plan, index) => ({
   icon: [User, Users, Play][index]
 }));
 
-export function Pricing() {
+interface PricingProps {
+  onPlanSelect?: (planName: string) => void;
+}
+
+export function Pricing({ onPlanSelect }: PricingProps = {}) {
   const headerReveal = useScrollReveal('fadeInUp');
   const cardsReveal = useScrollReveal('fadeInUp');
   const faqReveal = useScrollReveal('fadeIn');
@@ -88,6 +92,7 @@ export function Pricing() {
 
               <CardContent className="space-y-6 pt-0">
                   <Button 
+                    onClick={() => onPlanSelect?.(plan.name)}
                     variant="default"
                     size="lg"
                     className={`w-full h-12 text-white border-0 ${

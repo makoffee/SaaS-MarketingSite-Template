@@ -7,7 +7,11 @@ import { useScrollReveal } from "../../hooks/useScrollReveal";
 import { content } from "../../config/content";
 import { useRef, useState } from "react";
 
-export function CallToAction() {
+interface CallToActionProps {
+  onGetStarted?: () => void;
+}
+
+export function CallToAction({ onGetStarted }: CallToActionProps = {}) {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   
@@ -113,12 +117,19 @@ export function CallToAction() {
           variants={ctaReveal.variants}
           className="flex flex-col sm:flex-row gap-4 justify-center mb-16"
         >
-          <Button asChild size="lg" className="h-12 px-8 bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white">
-            <Link to="/auth">
+          {onGetStarted ? (
+            <Button onClick={onGetStarted} size="lg" className="h-12 px-8 bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white">
               {content.cta.buttons.primary}
               <ArrowRight className="ml-2 h-5 w-5" />
-            </Link>
-          </Button>
+            </Button>
+          ) : (
+            <Button asChild size="lg" className="h-12 px-8 bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white">
+              <Link to="/auth">
+                {content.cta.buttons.primary}
+                <ArrowRight className="ml-2 h-5 w-5" />
+              </Link>
+            </Button>
+          )}
           <Button 
             size="lg" 
             variant="outline" 

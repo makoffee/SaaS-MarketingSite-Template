@@ -16,11 +16,13 @@ import { Logo } from "../Logo";
 interface AuthScreenProps {
   onLogin: () => void;
   onBackToLanding?: () => void;
+  selectedPlan?: string;
+  initialMode?: 'login' | 'signup';
   className?: string;
 }
 
-export function AuthScreen({ onLogin, onBackToLanding, className = "" }: AuthScreenProps) {
-  const [isSignup, setIsSignup] = useState(false);
+export function AuthScreen({ onLogin, onBackToLanding, selectedPlan, initialMode = 'login', className = "" }: AuthScreenProps) {
+  const [isSignup, setIsSignup] = useState(initialMode === 'signup');
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
